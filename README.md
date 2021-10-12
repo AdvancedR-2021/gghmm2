@@ -2,8 +2,9 @@
 
 Package for visualization and analys of  fibre patterns. It will be build as a expansion to the spatstat package. 
 
-Project manager: 
+Project manager: Simon
 
-Documentation manager: 
+Documentation manager: Esben
 
-Quality manager: 
+Quality manager: Ajay
+
