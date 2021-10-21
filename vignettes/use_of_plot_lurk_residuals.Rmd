@@ -1,0 +1,72 @@
+---
+title: "use_of_plot_lurk_residuals"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{use_of_plot_lurk_residuals}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lurkingvariabledet)
+Dat1 = Dataset1
+Dat2 = Dataset2
+```
+
+
+\section{Background}
+
+A common practice in statistic when given data, is to see if there is correlation between the different variables.
+However when we do this we need to be careful that we do not read to much into the correlation.
+Because while a high correlation between two variable may speak to a relationship between the two,
+it could also be a "fake" relationship. One possible cause of this could be a lurking variable. 
+A lurking variable is a variable that is dependent on by both the variable we are looking at. Which the creates
+a illusion of high correlation. 
+
+
+A example could be ice cream sale and heatstroke on some beach. It is not hard to see that 
+both variable would be big on the days where it is hot and low when it is cold. In this case
+it is clear that we have temperature as a lurking variable. However if we did not consider this
+then we could have thought that eating ice cream could course heatstroke. 
+
+
+The function plot_lurk_residuals will allow us to see if our data has $Z$ as a lurking variable. It does by plotting the residulas of the 
+linear model of $X$ on $Z$ against the residuals of the linear model  $Y$ on $Z$.
+
+\section{Practise}
+So to see that the plot_lurk_residuals function will help detect lurking variables, we will be looking at two datasets.
+In dataset1, both $X$ and $Y$ are made from $Z$. So $Z$ is the clear lurking variable, and we see data seems to be correlated.
+
+```{r fig.align = 'center'}
+plot(Dat1$X,Dat1$Y)
+```
+
+
+In the other dataset only $X$ was made from $Z$, while $Y$ was made from $X$. This mean that there is a clear correlation between the two, which
+the plot also shows.
+
+```{r fig.align = 'center'}
+plot(Dat2$X,Dat2$Y)
+```
+
+We then try using the function on both datasets. 
+```{r fig.align = 'center'}
+plot_lurk_residuals(Dat1$X,Dat1$Y,Dat1$Z)
+```
+
+```{r fig.align = 'center'}
+plot_lurk_residuals(Dat2$X,Dat2$Y,Dat2$Z)
+
+```
+
+We see that the do look somewhat different. For dataset1 we do not see any regression, while in
+dataset2 we do seen a small regression line forming between the two variables. This shows us that while 
+$X$ and $Y$ from dataset1 may be have a high correlation, it does not mean that they are 
+actually correlated while the data from Dataset2 must be. 

@@ -1,0 +1,17 @@
+Package: HMMStat
+Type: Package
+Title: HMMStat
+Version: 0.2.0
+Author: Ajay, Esben and Simon
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: Plot the residuels to find if a dataset has a lurking residual,
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)

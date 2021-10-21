@@ -1,0 +1,28 @@
+---
+title: "roadmap"
+author: "Ajay, Esben and Simon"
+date: "21/10/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Gamma version (31/10)
+- A class that contain parameters for the HMM
+-new print functions
+- EM
+- Forward, Backward
+- Decode
+- State prediction
+- Forecasting
+- new plot functions
+- Generating data from HMM
+- Find Data
+
+## Beta version (7/11)
+- Write vignette to showcase use of package 
+- Test functions and add warnings  
+
+

@@ -1,0 +1,47 @@
+---
+title: "reqspec"
+author: "Ajay, Esben and Simon"
+date: "21/10/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Objectives with the package
+
+Package that can do HMM for us
+- A class that contain parameters for the HMM
+- EM
+- Forward, Backward
+- Decode, State prediction, Forecasting, etc.
+- Visualization in the context of HMM
+- Generating data from HMM
+## Functions
+
+-All the functions should work on the new class. 
+- The Visualization of the HMM will need the user to provide the generation functions. 
+-The same is true for Generating data from HMM
+
+##  Forward, Backward
+-Both take a numeric vector $X$ and a HMM class
+- Both should output a matrix
+
+## EM 
+- The input is numeric vector $X$ , a HMM class and a tolerance level. 
+- The output is the new parameters, which have been fitted to the data. 
+- If times allow we would like the function to plot the new parameters as a mixed distribution against the data. 
+
+##  local Decode
+- The input is a numeric vector $X$ , a HMM class, a numeric value equal to a hidden states index $i$ and a positive numerical value which which is the time we will look at $t$. 
+- The output is a numerical value of the prob. of the hidden state being equal to $i$ at time $t$. 
+
+## State prediction
+- The input is a numeric vector $X$ , a HMM class, a numeric value equal to a hidden states index $i$ and a positive numerical value which which is the time we will look at $t$. 
+- The output is a numerical value which is equal to the prob of HMM having the hidden state $i$ at time $t$ in the future. 
+
+
+## Forecasting
+- The input is a numeric vector $X$ , a HMM class, a numeric value equal to a emission $a$ and a positive numerical value which which is the time we will look at $t$. 
+- The output is a numerical value wich is eqaul to the prob of HMM emitting $a$ at time $t$ in the future. 
