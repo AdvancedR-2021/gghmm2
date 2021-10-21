@@ -1,6 +1,6 @@
-# spatstatfibpattern
+# HMMstat
 
-Package for visualization and analys of  fibre patterns. It will be build as a expansion to the spatstat package. 
+Package for analysis and modeling of Hidden markov models. 
 
 Project manager: Simon
 
