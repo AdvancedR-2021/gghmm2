@@ -1,35 +1,34 @@
-Y <- read.table("earthquakes.txt")[,2]
 
-delta = 0.4
 
-lambda1 = 5
-
-lambda2=15
-n = length(Y)
-
-deltaold = 1000
-
-lambda1old = 1000
-
-lambda2old = 1000
-i = 0
-
-while (T) {
- cond = (delta*dpois(Y,lambda1))/(delta*dpois(Y,lambda1)+(1-delta)*dpois(Y,lambda2))
-
-delta = sum(cond)/n
-
-lambda1 = sum(cond*Y)/sum(cond)
-
-lambda2 = sum(Y*(1-cond))/sum(1-cond)
-if (abs(delta-deltaold)/deltaold <0.01 && abs(lambda1old - lambda1)/lambda1old <0.01 && abs(lambda2old-lambda2)/lambda2old<0.01){break}
-deltaold = delta
-
-lambda1old = lambda1
-
-lambda2old = lambda2
-i = i+1
+#' Title
+#'
+#' @param Y 
+#' @param D 
+#' @param L 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+EM_mix_2_poisson <- function(Y,D,L) {
+  n = length(Y)
+  condP <- function(Y,L,D) {
+    (D*dpois(Y,L[1]))/(D* dpois(Y,L[1])+(1-D)*dpois(Y,L[2]))
+  }
+  
+  for (i in c(1:10000)) {
+    D = sum(condP(Y,L,D))/n
+    L[1] = (sum(Y * condP(Y,L,D)))/(sum(condP(Y,L,D)))
+    L[2] = (sum(Y * (1-condP(Y,L,D))))/(sum(1-condP(Y,L,D)))
+  }
+  print(paste("Delta is equal to ",round(D,2)))
+  print(paste("Lambda is ",round(L[1],2)," and ",round(L[2],2)))
 }
 
-print(c(delta, lambda1, lambda2,i))
 
+#A little test
+Y <- read.table("http://www.hmms-for-time-series.de/second/data/earthquakes.txt")[,2]
+D = 0.5
+L = c(200,10)
+n = length(Y)
+EM_mix_2_poisson(Y,D,L)
