@@ -10,16 +10,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Gamma version (31/10)
-- A class that contain parameters for the HMM
--new print functions
-- EM
-- Forward, Backward
-- Decode
-- State prediction
-- Forecasting
+- A class that contain parameters for the HMM , Simon
+-new print functions , Simon
+- EM , Esben 
+- Forward, Backward , Esben 
+- Decode , Esben
+- State prediction , Simon
+- Forecasting , Simon
 - new plot functions
 - Generating data from HMM
-- Find Data
+- Find Data , Ajay
 
 ## Beta version (7/11)
 - Write vignette to showcase use of package 
