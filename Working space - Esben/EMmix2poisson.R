@@ -27,8 +27,8 @@ EM_mix_2_poisson <- function(Y,D,L) {
 
 
 #A little test
-Y <- read.table("http://www.hmms-for-time-series.de/second/data/earthquakes.txt")[,2]
-D = 0.5
-L = c(200,10)
-n = length(Y)
-EM_mix_2_poisson(Y,D,L)
+#Y <- read.table("http://www.hmms-for-time-series.de/second/data/earthquakes.txt")[,2]
+#D = 0.5
+#L = c(200,10)
+#n = length(Y)
+#EM_mix_2_poisson(Y,D,L)

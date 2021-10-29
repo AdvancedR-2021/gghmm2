@@ -1,10 +1,10 @@
-Package: HMMStat
+Package: spatstatfibpattern
 Type: Package
-Title: HMMStat
+Title: spatstatfibpattern
 Version: 0.2.0
 Author: Ajay, Esben and Simon
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: Plot the residuels to find if a dataset has a lurking residual,
+Description:   kkmkk
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
@@ -14,4 +14,4 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Depends: 
-    R (>= 2.10)
+    R (>= 2.10) 

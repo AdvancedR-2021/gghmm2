@@ -6,14 +6,15 @@
 #'
 #' @param state 
 #' @param state_time 
-#' @param HMM A HMM object
+#' @param HM A HMM object
 #' @param X  Data
 #'
 #' @return 
 #' @export
 #'
 #'
-state_prob = function(state,state_time,delta,trans,X,param){
+state_prob = function(state,state_time,HM,X){
+  #delta,trans,param
   FA = forwardalgopois(delta,trans,X,param)
   BA = backwardalgopois(trans,X,param)
   

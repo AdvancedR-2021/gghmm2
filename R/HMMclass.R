@@ -11,13 +11,16 @@
 #' @param state_names vector of names for each state 
 #'
 #' @return A  HMM class object 
+#' @import tibble
 #' @export
 #'
 #'
+
 HMM <- function(stationary_dist=c(0.5,0.5),transmision = matrix(0.5,2,2),
                 emission_function=c(dnorm,dnorm),
                 parameters =list(list(mean=5,sd=3),list(mean=5,sd=3)) ,state_names = NULL,
                 ...){
+  library(tibble)
   lisst <- tibble(stationary_dist=stationary_dist,transmision = transmision ,
                   emission_func=emission_function, parm = parameters , state_names = state_names)
   class(lisst ) <- c("HMM","tbl_df")
