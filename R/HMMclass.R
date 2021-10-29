@@ -27,4 +27,3 @@ HMM <- function(stationary_dist=c(0.5,0.5),transmision = matrix(0.5,2,2),
 #params <- tibble(param= list(list(mean=5, sd=4),list(mean=3, sd=2)))
 #PP = params$param
 #do.call(dnorm, c(x=1, PP[[1]]))
-
