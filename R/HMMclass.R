@@ -13,20 +13,48 @@
 #' @return A  HMM class object 
 #' @import tibble
 #' @export
-#'
-#'
+#' @example 
+#' ddnorm = function(x,mean,sd){return(x+mean+sd)}
+#' delta = c(0.3,0.7)
+#' MM= matrix(c(1,2,3,4),2,2)
+#' nn= c("ddnorm","dnorm")
+#' parameters = list(list(mean=5,sd=2),list(mean=4,sd=3))
+#' HM = HMM(stationary_dist=delta,transmision =MM,emission_function_names=nn,parameters =parameters)
+#' params <- tibble(param= list(list(mean=5, sd=4),list(mean=3, sd=2)))
+#' PP = HM$param
+#' func= HM$emission_func
+#' do.call(func[[1]], c(x=1, PP[[1]]))
+#' do.call(func[[2]], c(x=1, PP[[2]]))
 
 HMM <- function(stationary_dist=c(0.5,0.5),transmision = matrix(0.5,2,2),
-                emission_function=c(dnorm,dnorm),
+                emission_function_names=c("dnorm","dnorm"),
                 parameters =list(list(mean=5,sd=3),list(mean=5,sd=3)) ,state_names = NULL,
-                ...){
+                en,...){
   library(tibble)
+  emission_function = sapply(emission_function_names,get)
   lisst <- tibble(stationary_dist=stationary_dist,transmision = transmision ,
-                  emission_func=emission_function, parm = parameters , state_names = state_names)
+                  emission_func=emission_function,emission_function_names=emission_function_names, param = parameters , state_names = state_names)
   class(lisst ) <- c("HMM","tbl_df")
   return(lisst ) 
 }
 
-#params <- tibble(param= list(list(mean=5, sd=4),list(mean=3, sd=2)))
-#PP = params$param
-#do.call(dnorm, c(x=1, PP[[1]]))
+
+print.HMM <- function(HMM){
+  if (!is.null(HMM) ){
+    trans = HMM$transmision
+    delta = HMM$stationary_dist
+    Param = HMM$param
+    emisf = HMM$emission_func
+    emisnames = HMM$emission_function_names
+  }
+  
+  print(paste("This is a Hidden Markov model with", length(delta), "hidden states."))
+  print("It has the Statinonary distribution of:")
+  print(delta)
+  print("It has the transmision matrix:")
+  print(trans)
+  print(paste("It has the emission function", emisnames,"with parameters",Param))
+  
+}
+
+

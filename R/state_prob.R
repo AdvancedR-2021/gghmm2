@@ -2,22 +2,28 @@
 #'
 #' @description 
 #' 
-#' @usage state_prob(state,state_time,HMM,X)
+#' @usage state_prob(state,state_time,HM,data)
 #'
-#' @param state 
-#' @param state_time 
-#' @param HM A HMM object
-#' @param X  Data
+#' @param state A Natural Numbers from 1 up to dim(HMM$transmision).
+#' @param state_time A Natural Numbers from 1 up to length(data).
+#' @param HM A HMM object.
+#' @param Data  vector of observations.
 #'
-#' @return 
+#' @return A numerical value between 0 and 1, which is the probability for having state 
+#' at time state_time given our HMM and data. 
 #' @export
 #'
 #'
-state_prob = function(state,state_time,HM,X){
+state_prob = function(state,state_time,HM,data){
+  if (!is.null(HMM) ){
+    trans = HMM$transmision
+    delta = HMM$stationary_dist
+    Param = HMM$param
+    emisf = HMM$emission_func
+  }
   #delta,trans,param
-  FA = forwardalgopois(delta,trans,X,param)
-  BA = backwardalgopois(trans,X,param)
-  
-  likelihood =  sum(BA[,1]*delta*dpois(X[1],lambda = param))
+  FA = forward(data = data, HM = HM)
+  BA = backward(data = data, HM = HM)
+  likelihood =  sum(FA[,length(data)])
   return(FA[state,state_time]*BA[state,state_time]/likelihood)
 }
