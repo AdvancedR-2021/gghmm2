@@ -1,6 +1,9 @@
 #mangler generalisering af dpois
 
 forward <- function(HM,X){
+  
+  X = rnorm(5)
+  HM = hmm
   if (!is.null(HM) ){
     trans = HM$transmision
     delta = HM$stationary_dist
@@ -11,13 +14,13 @@ forward <- function(HM,X){
   t = length(X)
   alpha_matrix = matrix(c(0),m,t)
   for (i in c(1:m)){
-    alpha_matrix [i,1] = delta[i] * do.call(emisf[[i]],c(x=X[1],param[i]))
+    alpha_matrix [i,1] = delta[i] * do.call(emisf[[i]],c(list(x=X[1]),param[i]))
       
   }
   
   for (i in c(2:t)){
     for (j in c(1:m)){
-      alpha_matrix [j,i] =do.call(emisf[[j]],c(x=X[i],param[j])) *sum(alpha_matrix[,i-1] * trans[,j])
+      alpha_matrix [j,i] =do.call(emisf[[j]],c(list(x=X[i]),param[j])) *sum(alpha_matrix[,i-1] * trans[,j])
       
     }
   }
