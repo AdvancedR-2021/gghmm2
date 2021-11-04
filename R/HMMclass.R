@@ -30,15 +30,31 @@ HMM <- function(stationary_dist=c(0.5,0.5),transmision = matrix(0.5,2,2),
                 emission_function_names=c("dnorm","dnorm"),
                 parameters =list(list(mean=5,sd=3),list(mean=5,sd=3)) ,state_names = NULL,
                 en,...){
-  library(tibble)
+  if (is.null(state_names)){
+    state_names = c(1:length(stationary_dist))
+  }
   emission_function = sapply(emission_function_names,get)
-  lisst <- tibble(stationary_dist=stationary_dist,transmision = transmision ,
+  lisst <- tibble::tibble(stationary_dist=stationary_dist,transmision = transmision ,
                   emission_func=emission_function,emission_function_names=emission_function_names, param = parameters , state_names = state_names)
   class(lisst ) <- c("HMM","tbl_df")
   return(lisst ) 
 }
 
-
+#' @title print.HMM
+#'
+#' @description This will print a 
+#'
+#' @usage HMM(stationary_dist,transmission , emission_function, parameters)
+#'
+#' @param stationary_dist  numerical vector of the stationary distribution
+#' @param transmision  numerical matrix containing the transmission probabilities 
+#' @param emission_function vector of emission functions 
+#' @param parameters  list of list, where each list containing the parameters need in the emision functions
+#' @param state_names vector of names for each state 
+#'
+#' @return A  HMM class object 
+#' @import tibble
+#' @export
 print.HMM <- function(HMM){
   if (!is.null(HMM) ){
     trans = HMM$transmision
@@ -46,6 +62,7 @@ print.HMM <- function(HMM){
     Param = HMM$param
     emisf = HMM$emission_func
     emisnames = HMM$emission_function_names
+    name_of_state = HMM$state_names
   }
   
   print(paste("This is a Hidden Markov model with", length(delta), "hidden states."))
@@ -53,7 +70,11 @@ print.HMM <- function(HMM){
   print(delta)
   print("It has the transmision matrix:")
   print(trans)
-  print(paste("It has the emission function", emisnames,"with parameters",Param))
+  for (i in c(1:length(delta))){
+    PP = unlist(strsplit( paste(Param[i]),"[()]"))[2]
+    print(paste( "State" ,name_of_state[i]," has the emission function", emisnames[i],"with parameters", PP))
+  } 
+  
   
 }
 

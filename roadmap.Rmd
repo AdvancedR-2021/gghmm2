@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Gamma version (5/11)
+## Gamma version (7/11)
 - A class that contain parameters for the HMM , Simon
 -new print functions , Simon
 - EM , Esben 
@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 - Generating data from HMM
 - Find Data , Ajay
 
-## Beta version (14/11)
+## Beta version (15/11)
 - Write vignette to showcase use of package 
 - Test functions and add warnings  
 
