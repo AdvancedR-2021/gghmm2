@@ -16,10 +16,10 @@
 #' XX = c(1,1,1) 
 #' emis = matrix(c(0.5,0,0.5,1),2,2) 
 #' fbinom = function(x){x+1}
-#' forwardalgo(delta = del,trans = tpm, emision = emis,X = XX,f=fbinom)
+#' forward(delta = del,trans = tpm, emision = emis,X = XX,f=fbinom)
  
 
-forwardalgo<- function(delta,trans,emision,X,f){
+forward<- function(delta,trans,emision,X,f){
   m = dim(trans)[1]
   t = length(X)
   Im = matrix(c(0),m,t)
