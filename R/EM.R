@@ -1,6 +1,4 @@
-
-#####################################################
-em <- function(delta,trans,lambdaL,X){
+em <- function(HM,X){
   if (!is.null(HM) ){
     trans = HM$transmision
     delta = HM$stationary_dist
@@ -25,17 +23,22 @@ em <- function(delta,trans,lambdaL,X){
       Statetrans[i,j] = temp
     }
   }
-  
   delta =   FA[,1]*BA[,1]/likelihood
   col_statetrans = colSums(Statetrans)
   trans= t(t(Statetrans)/colSums(Statetrans))
+  
+  for (k in c(1:m)){
+    if (emisf[k]=="dpois"){
+      param[[k]] = sum(X*FA[k,]*BA[k,]/likelihood)/ sum(FA[k,]*BA[k,]/likelihood)
+    }
+    
+    
+  }
+  
   param = c(1:m)
-  
-  
   for (i in c(1:m)){
     param[i] = sum(X*FA[i,]*BA[i,]/likelihood)/ sum(FA[i,]*BA[i,]/likelihood)
+    }
   }
-  }
-
   return(list(delta=delta , trans=trans,lambdaL=lambdaL))
 }
