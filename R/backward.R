@@ -1,6 +1,10 @@
-#Temporary - needs generalization of dpois
-
-backward <- function(trans,X,param){
+backward <- function(HM,x){
+  if (!is.null(HM) ){
+    trans = HM$transmision
+    delta = HM$stationary_dist
+    param = HM$param
+    emisf = HM$emission_func
+  }
   m = dim(trans)[1]
   t = length(X)
   beta_matrix= matrix(1,m,t)
