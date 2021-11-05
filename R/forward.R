@@ -1,5 +1,3 @@
-#mangler generalisering af dpois
-
 forward <- function(HM,X){
   if (!is.null(HM) ){
     trans = HM$transmision
