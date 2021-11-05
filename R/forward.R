@@ -18,4 +18,3 @@ forward <- function(HM,X){
   }
   return(alpha_matrix)
 }
-
