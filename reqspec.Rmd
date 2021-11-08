@@ -25,7 +25,7 @@ Package that can do HMM for us
 -The same is true for Generating data from HMM
 
 ## HMM
-
+A S3 class that contaion the parameters for a hidden markov moddel. This would be the stationary distribution, transmission matrix and the distribution of each hidden state with its parameters. The distribution will come as a vector of strings, where each string is the name of the density function to be used for that hidden state. The parameters for each hidden state are kept in a list of list, where each list contain the named parameters for the relevant distribution. It is important that they are named, as we use the do.call function to call the function with the parameters. The class has its own print function, which will print out the parameter for the HHM. The user can use their own density function, if R does not have  then one they want to use. However then it will be required that the function is defined in the current environment as the function "get", is used to get the function.
 ##  Forward, Backward
 -Both take a numeric vector $X$ and a HMM class
 - Both should output a matrix where each entrance for the forward algorithm will
@@ -38,15 +38,22 @@ This will allow one to calculate the probability of begin in some state given th
 - The output is the new parameters, which have been fitted to the data. This is done by using the forward and backward algorithm to calculate the expected log likelihood for the the expectation step. Then we used theese value to estimate the parameters. Here th4 choice of model becomes important becoes while the transsesion matrix and the stationary ditribution stay the same the paramerts for the emission change quite a lot for the different distribution it can be. So here we fit the parameters directly for the popular distributions like poisson or normal, but for the rest a direct maximization method is used. 
 - If times allow we would like the function to plot the new parameters as a mixed distribution against the data. 
 
-##  local Decode
-- The input is a numeric vector $X$ , a HMM class, a numeric value equal to a hidden states index $i$ and a positive numerical value which which is the time we will look at $t$. 
-- The output is a numerical value of the prob. of the hidden state being equal to $i$ at time $t$. 
 
 ## State prediction
-- The input is a numeric vector $X$ , a HMM class, a numeric value equal to a hidden states index $i$ and a positive numerical value which which is the time we will look at $t$. 
+- The input is a numeric vector $X$ , a HMM class, a numeric value equal to a hidden states index $i$ and a positive numerical value which which is the time we will look at $t$.  
 - The output is a numerical value which is equal to the prob of HMM having the hidden state $i$ at time $t$ in the future. 
 
 
+##  local Decode
+- The input is a numeric vector $X$ and a HMM class. 
+- The output is a numerical value between $0$ and $1$. It will be the prob. of getting the output $X$ for the Hidden markov model describe in the HMM class. This is done by using the State prediction describe above and the density function that the HMM class contains. 
+
+## Viterbi
+- The input is a numeric vector $X$ and a HMM class. It calculates the sequence of states that has the highest prob. of emitting $X$.
+-It will return a list containing the sequence of states and the prob. of this sequence. 
+We get this by using the Viterbi algorithm, where we construct the most likely path and while doing so keeps tabs how like it is. 
+
+
 ## Forecasting
-- The input is a numeric vector $X$ , a HMM class, a numeric value equal to a emission $a$ and a positive numerical value which which is the time we will look at $t$. 
-- The output is a numerical value wich is eqaul to the prob of HMM emitting $a$ at time $t$ in the future. 
+- The input is a numeric vector $X$ , a HMM class, a numeric value equal to a emission $a$ and a positive numerical value which which is the time we will look at $t$. Note that it is  assumed that the input $X$ has already taken place, so if $X$ has length $h$ then the actual time is $t+h$. 
+- The output is a numerical value. It is the prob of getting emission $a$ at time $t+h$ given $X$. 
