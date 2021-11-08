@@ -1,6 +1,6 @@
 #' @title forecast
 #'
-#' @description 
+#' @description forecast
 #' 
 #' @usage forecast(pred_obs,pred_time,data)
 #'
@@ -8,6 +8,8 @@
 #' @param pred_time
 #' @param HMM A HMM object
 #' @param data Data
+#' 
+#' @include HMMclass.R forward.R
 #'
 #' @return 
 #' @export

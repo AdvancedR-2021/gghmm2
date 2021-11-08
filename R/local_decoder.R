@@ -3,13 +3,15 @@
 #' @description 
 #' 
 #' @usage local_decoder(HMM,X)
+#' 
+#' @include HMMclass.R
 #'
 #' @param HMM A HMM object
 #' @param X  Data
-#'
+#' @include HMMclass.R state_prob.R 
 #' @return 
 #' @export
-#'
+#' 
 #'
 
 

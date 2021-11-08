@@ -1,3 +1,17 @@
+#' @title em
+#'
+#' @description 
+#' 
+#' @usage em(HMM,X)
+#' 
+#' @param HMM A HMM object
+#' @param X  Data
+#' @include HMMclass.R forward.R backward.R 
+#' @return 
+#' @export
+#' 
+#'
+
 em <- function(HM,X){
   if (!is.null(HM) ){
     trans = HM$transmision

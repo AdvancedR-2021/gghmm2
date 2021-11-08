@@ -8,6 +8,8 @@
 #' @param state_time A Natural Numbers from 1 up to length(data).
 #' @param HM A HMM object.
 #' @param Data  vector of observations.
+#' 
+#' @include HMMclass.R forward.R backward.R
 #'
 #' @return A numerical value between 0 and 1, which is the probability for having state 
 #' at time state_time given our HMM and data. 
