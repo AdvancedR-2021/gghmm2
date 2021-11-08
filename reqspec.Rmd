@@ -24,13 +24,18 @@ Package that can do HMM for us
 - The Visualization of the HMM will need the user to provide the generation functions. 
 -The same is true for Generating data from HMM
 
+## HMM
+
 ##  Forward, Backward
 -Both take a numeric vector $X$ and a HMM class
-- Both should output a matrix
+- Both should output a matrix where each entrance for the forward algorithm will
+be the prob. of ending up in a state given what we observed before that, and for the 
+backward algorithm it should be the prob. of observing the remaing observation given the current state.
+This will allow one to calculate the probability of begin in some state given the all thew observation we have. The most important use of these two algorithms is the EM algorithm, which allow us to fit a HMM to some data. 
 
 ## EM 
-- The input is numeric vector $X$ , a HMM class and a tolerance level. 
-- The output is the new parameters, which have been fitted to the data. 
+- The input is numeric vector $X$ , a HMM class and a tolerance level. The Purpose of the EM algorithm is to fit a model to some data. In this case the model will be a hidden markov model. There are two steps to the EM algorithm the expetation step and the Maximization step. In the expetation step we find the value of the expected log likelihood. When we have a function that can calculate this, we then in the maximization step  find the parameters that maximizers the function. By repeating thsi proces multiple times we find parameters that fit the data. 
+- The output is the new parameters, which have been fitted to the data. This is done by using the forward and backward algorithm to calculate the expected log likelihood for the the expectation step. Then we used theese value to estimate the parameters. Here th4 choice of model becomes important becoes while the transsesion matrix and the stationary ditribution stay the same the paramerts for the emission change quite a lot for the different distribution it can be. So here we fit the parameters directly for the popular distributions like poisson or normal, but for the rest a direct maximization method is used. 
 - If times allow we would like the function to plot the new parameters as a mixed distribution against the data. 
 
 ##  local Decode

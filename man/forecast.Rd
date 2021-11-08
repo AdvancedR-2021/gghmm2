@@ -4,14 +4,14 @@
 \alias{forecast}
 \title{forecast}
 \usage{
-forecast(HMM,X)
+forecast(pred_obs,pred_time,data)
 }
 \arguments{
 \item{pred_obs}{}
 
-\item{HMM}{A HMM object}
+\item{data}{Data}
 
-\item{X}{Data}
+\item{HMM}{A HMM object}
 }
 \value{
 

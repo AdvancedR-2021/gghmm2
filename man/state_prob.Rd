@@ -4,19 +4,20 @@
 \alias{state_prob}
 \title{state_prob}
 \usage{
-state_prob(state,state_time,HMM,X)
+state_prob(state,state_time,HM,data)
 }
 \arguments{
-\item{state}{}
+\item{state}{A Natural Numbers from 1 up to dim(HMM$transmision).}
 
-\item{state_time}{}
+\item{state_time}{A Natural Numbers from 1 up to length(data).}
 
-\item{HM}{A HMM object}
+\item{HM}{A HMM object.}
 
-\item{X}{Data}
+\item{Data}{vector of observations.}
 }
 \value{
-
+A numerical value between 0 and 1, which is the probability for having state 
+at time state_time given our HMM and data.
 }
 \description{
 

@@ -2,20 +2,20 @@
 % Please edit documentation in
 %   R/Forward_algorithm_for_likelihood_calculation_of_ the_two-state
 %   Bernoulli-HMM.R
-\name{forwardalgo}
-\alias{forwardalgo}
+\name{forward}
+\alias{forward}
 \title{Title}
 \usage{
-forwardalgo(delta, trans, emision, X, f)
+forward(HM, X)
 }
 \arguments{
+\item{X}{}
+
 \item{delta}{}
 
 \item{trans}{}
 
 \item{emision}{}
-
-\item{X}{}
 
 \item{f}{}
 }
@@ -31,5 +31,5 @@ del = c(1/3 , 2/3)
 XX = c(1,1,1) 
 emis = matrix(c(0.5,0,0.5,1),2,2) 
 fbinom = function(x){x+1}
-forwardalgo(delta = del,trans = tpm, emision = emis,X = XX,f=fbinom)
+forward(delta = del,trans = tpm, emision = emis,X = XX,f=fbinom)
 }
