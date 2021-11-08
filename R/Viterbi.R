@@ -11,17 +11,22 @@
 #' @export
 #'
 #'
-
-viterbi = function(X,delta,trans,param){
- 
-  
-  
-   t <- length(X)
+''
+viterbi = function(HM,X){
+  if (!is.null(HM) ){
+    trans = HM$transmision
+    delta = HM$stationary_dist
+    param = HM$param
+    emisf = HM$emission_func
+  }
+  t <- length(X)
   m <- length(param)
   epsilon = matrix(0,m,t)
   maxindex = matrix(0,m,t)
+  x=X
   for (i in c(1:m)){
-    epsilon[i,1] = delta[i] * dpois(X[1],lambda = param[i])
+    
+    epsilon[i,1] = delta[i] * do.call(emisf[[i]],c(list(x=x[1],param[[i]])))
       
       
       #dpois(X[1],lambda = param[i])
@@ -34,7 +39,10 @@ viterbi = function(X,delta,trans,param){
     for (j in c(1:m)){
       temp = epsilon[,i-1] * trans[,j]
       maxindex[j,i] = which.max(temp)
-      epsilon[j,i] =dpois(X[i],lambda = param[j])*max(temp)
+      epsilon[j,i] =do.call(emisf[[j]],c(list(x=x[i],param[[j]])))
+      
+      
+      #dpois(X[i],lambda = param[j])*max(temp)
     }
   }
   path = numeric(t)
@@ -49,6 +57,11 @@ viterbi = function(X,delta,trans,param){
 delta = c(0.5,0.5)
 lambdaL=c(10,30)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
+
+hm = HM(delta,trans,emission_function_names=c("dpois","dpois"),parameters=list(list(lambda =10),list(lambda =30)))
+
+
+Result2= viterbi(hm,X)
 
 Result2 = viterbi(X,delta = delta,trans = trans,param = lambdaL)
 Result2$path
