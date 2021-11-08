@@ -12,7 +12,7 @@
 #'
 #'
 
-Viterbialgo = function(X,delta,trans,param){
+viterbi = function(X,delta,trans,param){
  
   
   
@@ -50,7 +50,7 @@ delta = c(0.5,0.5)
 lambdaL=c(10,30)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
 
-Result2 = Viterbialgo(X,delta = delta,trans = trans,param = lambdaL)
+Result2 = viterbi(X,delta = delta,trans = trans,param = lambdaL)
 Result2$path
 Result2$path_prob
 Result2$maxindex
