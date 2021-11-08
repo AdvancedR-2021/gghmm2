@@ -26,23 +26,14 @@ viterbi = function(HM,X){
   x=X
   for (i in c(1:m)){
     
-    epsilon[i,1] = delta[i] * do.call(emisf[[i]],c(list(x=x[1],param[[i]])))
-      
-      
-      #dpois(X[1],lambda = param[i])
-    
-    
-    #do.call(emisf[[1]],c(list(x=x[i],param[[i]])))
+    epsilon[i,1] = delta[i] * do.call(emisf[[i]],c(list(x=x[1]),param[[i]]))
     
   }
   for (i in c(2:t)){
     for (j in c(1:m)){
       temp = epsilon[,i-1] * trans[,j]
       maxindex[j,i] = which.max(temp)
-      epsilon[j,i] =do.call(emisf[[j]],c(list(x=x[i],param[[j]])))
-      
-      
-      #dpois(X[i],lambda = param[j])*max(temp)
+      epsilon[j,i] =do.call(emisf[[j]],c(list(x=x[i]),param[[j]]))
     }
   }
   path = numeric(t)
@@ -50,20 +41,15 @@ viterbi = function(HM,X){
   for (i in c((t-1):1)){
     path[i] = maxindex[path[i+1],i+1]
   }
-  return(list(path=path,path_prob=max(epsilon[,t]),maxindex=maxindex))
+  return(list(path=path,path_prob=max(epsilon[,t])))
 }
 
- X = read.table("http://www.hmms-for-time-series.de/second/data/earthquakes.txt")[,2]
-delta = c(0.5,0.5)
-lambdaL=c(10,30)
-trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
+#X = read.table("http://www.hmms-for-time-series.de/second/data/earthquakes.txt")[,2]
+#delta = c(0.5,0.5)
 
-hm = HM(delta,trans,emission_function_names=c("dpois","dpois"),parameters=list(list(lambda =10),list(lambda =30)))
+#lambdaL=c(10,30)
+#trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
 
+#hm = HMM(stationary_dist = delta,transmision = trans,emission_function_names = c("dpois","dpois"),parameters = list(list(lambda =10),list(lambda =30)))
 
-Result2= viterbi(hm,X)
-
-Result2 = viterbi(X,delta = delta,trans = trans,param = lambdaL)
-Result2$path
-Result2$path_prob
-Result2$maxindex
+#Result2= viterbi(hm,X)

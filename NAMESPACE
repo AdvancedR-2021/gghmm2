@@ -2,11 +2,11 @@
 
 S3method(print,HMM)
 export(HMM)
-export(Viterbialgo)
 export(backward)
 export(em)
 export(forecast)
 export(forward)
 export(local_decoder)
 export(state_prob)
+export(viterbi)
 import(tibble)
