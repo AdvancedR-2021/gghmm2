@@ -1,4 +1,4 @@
-# HMMstat
+# gghmm2
 
 Package for analysis and modeling of Hidden markov models. 
 
