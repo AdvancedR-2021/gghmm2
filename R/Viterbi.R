@@ -12,15 +12,11 @@
 #'
 #'
 
-Viterbialgo = function(EM=null,HM,X){
-  if (!is.null(HM) ){
-    trans = HM$transmision
-    delta = HM$stationary_dist
-    param = HM$param
-    emisf = HM$emission_func
-  }
+Viterbialgo = function(X,delta,trans,param){
+ 
   
-  t <- length(X)
+  
+   t <- length(X)
   m <- length(param)
   epsilon = matrix(0,m,t)
   maxindex = matrix(0,m,t)
@@ -29,6 +25,7 @@ Viterbialgo = function(EM=null,HM,X){
       
       
       #dpois(X[1],lambda = param[i])
+    
     
     #do.call(emisf[[1]],c(list(x=x[i],param[[i]])))
     
@@ -53,6 +50,7 @@ delta = c(0.5,0.5)
 lambdaL=c(10,30)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
 
-Result2 = poisViterbi(X,delta = delta,trans = trans,param = lambdaL)Result2$path
+Result2 = Viterbialgo(X,delta = delta,trans = trans,param = lambdaL)
+Result2$path
 Result2$path_prob
 Result2$maxindex
