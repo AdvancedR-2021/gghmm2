@@ -41,18 +41,34 @@ em <- function(HM,X){
   col_statetrans = colSums(Statetrans)
   trans= t(t(Statetrans)/colSums(Statetrans))
   
+  
+  neglikeli = function(newpar, parloc, HM, X){
+    name <- names(HM$param[[parloc]])
+    HM$param[[parloc]]= as.list(newpar)
+    names(HM$param[[parloc]]) <- name
+    FA = forward(HM,X)
+    t = length(X)
+    likelihood =  sum(FA[,t])
+    
+    return(-log(likelihood))
+  }
+  
   for (k in c(1:m)){
     if (emisf[k]=="dpois"){
       param[[k]] = sum(X*FA[k,]*BA[k,]/likelihood)/ sum(FA[k,]*BA[k,]/likelihood)
     }
-    
+    else{
+      name <- names(param[[k]])
+      param[[k]] = list(nlm(f = neglikeli,p = unlist(param[[k]]),parloc=k,HM=HM,X=X)$estimate)
+      names(param[[k]]) <- name
+    }
     
   }
   
-  param = c(1:m)
-  for (i in c(1:m)){
-    param[i] = sum(X*FA[i,]*BA[i,]/likelihood)/ sum(FA[i,]*BA[i,]/likelihood)
-    }
+
   }
-  return(list(delta=delta , trans=trans,lambdaL=lambdaL))
+  HM$transmision = trans 
+  HM$stationary_dist = delta
+  HM$param = param
+  return(HM)
 }
