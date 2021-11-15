@@ -2,20 +2,28 @@
 % Please edit documentation in R/forecast.R
 \name{forecast}
 \alias{forecast}
-\title{forecast}
+\title{Forecast}
 \usage{
-forecast(pred_obs,pred_time,data)
+forecast(pred_obs,pred_time,HMM,data)
 }
 \arguments{
-\item{pred_obs}{}
+\item{pred_obs}{The observation we would like to predict}
 
-\item{data}{Data}
+\item{pred_time}{The time at which the observation should occur}
+
+\item{data}{The vector containing the data, which the model should be based on.}
 
 \item{HMM}{A HMM object}
 }
 \value{
-
+The probability of observing then observation at time T+n
 }
 \description{
-forecast
+The function will give the probability of observing pred_obs at time 
+pred_time.
+}
+\details{
+Note that the time we are prediction on, is not the time after the model has started,
+but after the observed data has been observed. So if there is n observation in the data,
+and we are looking t into the future we are n+t away form the first hidden state in the model.
 }

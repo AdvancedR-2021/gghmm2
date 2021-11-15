@@ -1,17 +1,22 @@
-#' @title forecast
+#' @title Forecast
 #'
-#' @description forecast
+#' @description The function will give the probability of observing pred_obs at time 
+#' pred_time. 
 #' 
-#' @usage forecast(pred_obs,pred_time,data)
+#' @usage forecast(pred_obs,pred_time,HMM,data)
 #'
-#' @param pred_obs 
-#' @param pred_time
+#' @param pred_obs The observation we would like to predict
+#' @param pred_time The time at which the observation should occur
 #' @param HMM A HMM object
-#' @param data Data
+#' @param data The vector containing the data, which the model should be based on.
+#' 
+#' @details Note that the time we are prediction on, is not the time after the model has started,
+#' but after the observed data has been observed. So if there is n observation in the data,
+#' and we are looking t into the future we are n+t away form the first hidden state in the model. 
 #' 
 #' @include HMMclass.R forward.R
 #'
-#' @return 
+#' @return The probability of observing then observation at time T+n
 #' @export
 #'
 forecast <- function(pred_obs,pred_time,HM=NULL,data){

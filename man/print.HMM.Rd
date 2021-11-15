@@ -4,22 +4,14 @@
 \alias{print.HMM}
 \title{print.HMM}
 \usage{
-HMM(stationary_dist,transmission , emission_function, parameters)
+print(HMM())
 }
 \arguments{
-\item{stationary_dist}{numerical vector of the stationary distribution}
-
-\item{transmision}{numerical matrix containing the transmission probabilities}
-
-\item{emission_function}{vector of emission functions}
-
-\item{parameters}{list of list, where each list containing the parameters need in the emision functions}
-
-\item{state_names}{vector of names for each state}
+\item{HMM}{A HMM class object.}
 }
 \value{
 A  HMM class object
 }
 \description{
-This will print a
+This will print the descibtion of the model defined in the HMM object.
 }
