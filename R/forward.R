@@ -1,14 +1,19 @@
-#' @title forward
+#' @title Forward Algorithm
 #'
-#' @description forward
+#' @description Creates a vector of forward probabilities which is used in most of the functions in this package.
+#' 
+#' @details Does recursive computation the likelihood which plays a key role in the likelihood evaluation
+#' and thus parameter estimation. It is also used in forecasting, decoding and model checking. The recursive nature of
+#' the forward algorithm is much more computationally inexpensive than brute-force summation over all possible state sequences.
+#' 
+#' 
 #' 
 #' @usage forward(HM,X)
 #' 
 #' @include HMMclass.R
 #'
-#' @param HMM A HMM object
+#' @param HMM A  HMM class object 
 #' @param X  Data
-#' @include HMMclass.R 
 #' @return 
 #' @export
 #' 
