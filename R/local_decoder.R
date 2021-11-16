@@ -1,15 +1,20 @@
-#' @title local_decoder
+#' @title Local decoder
 #'
-#' @description 
+#' @description Local_decoder calculate the states that are most probable for time frame that the data covers.
 #' 
 #' @usage local_decoder(HMM,X)
 #' 
 #' @include HMMclass.R
+#' 
+#' @details  The function uses the state_prob function to calculate which state would be most likely to yield the data. 
+#' Note that this is the   local decoder will give the state most probable for each separate time, and will not yield the 
+#' sequence of state that is most probable to emit the data. That sequence is returned by the Viterbi function. 
 #'
 #' @param HMM A HMM object
-#' @param X  Data
+#' @param X Data
+#' 
 #' @include HMMclass.R state_prob.R 
-#' @return 
+#' @return A vector containing the  states that are most probable given our model and data. 
 #' @export
 #' 
 #'
