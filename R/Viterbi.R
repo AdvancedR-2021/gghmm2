@@ -1,17 +1,20 @@
-#' @title Viterbialgo
+#' @title Viterbi algorithm
 #'
-#' @description 
+#' @description Finds through dynamic programming the most likely sequence of states
+#' 
+#' 
+#' @details D0es Global decoding through dynamic programming. It is not feasible to maximize over all possible states
+#' because this would run in O(m^t). Thus Viterbi is used as an alternative to this approach. 
+#' 
 #' 
 #' @usage Viterbialgo(HMM,X)
 #'
 #' @param HMM A HMM object
 #' @param X  Data
 #'
-#' @return 
+#' @return list() Returns a list of the most likely sequence of states.
 #' @export
 #'
-#'
-
 viterbi = function(HM,X){
   if (!is.null(HM) ){
     trans = HM$transmision
