@@ -6,10 +6,6 @@
 #' @details Creates through a backward pass through the data a evaluation in in form of conditional probabilities of the observations being 
 #' x_{t+1},...,x_t given that the Markov chain is in state i at time t.
 #'  
-#'  
-#'  
-#
-#' 
 #' @usage backward(HM,X)
 #' 
 #' @include HMMclass.R
@@ -21,8 +17,6 @@
 #' @include HMMclass.R 
 #' @export
 #' 
-#'
-
 backward <- function(HM,x){
   if (!is.null(HM) ){
     trans = HM$transmision
