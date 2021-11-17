@@ -20,8 +20,53 @@ library(gghmm2)
 ```
 
 
+
 \section{Background}
 
 
 
 \section{Practise}
+To see how the package works, we will cover a example of it, using the earthquakes data contained in the package. First we load that dataset and build the model we will be using. Here we use the HMM function to create the model. 
+
+```{r}
+X <- earthquakes$n
+delta = c(0.5,0.5)
+lambdaL=c(10,30)
+trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
+HM = HMM(stationary_dist = delta,transmision = trans,
+         emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),list(lambda=30)) )
+HM
+```
+Note that the print of the model, tells us how many hidden states the model has and all the parameters values.
+
+To use the forward and backward algorithms, the user can use the forward and backward functions. They just need to be suplied with the the model as $HM$ and the data as $X$.  
+
+```{r}
+n = length(X)
+FM = forward(HM,X)
+sum(FM[,n])
+BM = backward(HM,X)
+```
+
+To find the probability of being at 
+```{r}
+state_prob(state = 1, state_time = 10, HM = HM, X = X)
+```
+
+```{r}
+local_decoder(X,HM)
+```
+
+
+```{r}
+viterbi(HM,X)
+```
+
+```{r}
+forecast(3,10,HM=HM,X=X)
+```
+
+```{r}
+HM2 = em(HM,X)
+HM2
+```

@@ -39,7 +39,7 @@ em <- function(HM,X){
     for (j in c(1:m)){
       temp=0
       for (l in c(2:t)){
-    temp = temp+ FA[i,(l-1)]*trans[i,j]* do.call(emisf[[l]],c(list(x=X[l]),param[[j]]))*BA[j,l]/likelihood }
+    temp = temp+ FA[i,(l-1)]*trans[i,j]* do.call(emisf[[j]],c(list(x=X[l]),param[[j]]))*BA[j,l]/likelihood }
       Statetrans[i,j] = temp
     }
   }

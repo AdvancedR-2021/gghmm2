@@ -7,7 +7,7 @@
 #' @param state A Natural Numbers from 1 up to number of hidden states.
 #' @param state_time A Natural Numbers from 1 up to number of ob.
 #' @param HM A HMM object.
-#' @param Data  vector of observations.
+#' @param X  vector of observations.
 #' 
 #' @include HMMclass.R forward.R backward.R
 #'
@@ -16,16 +16,11 @@
 #' @export
 #'
 #'
-state_prob = function(state,state_time,HM,data){
-  if (!is.null(HMM) ){
-    trans = HMM$transmision
-    delta = HMM$stationary_dist
-    Param = HMM$param
-    emisf = HMM$emission_func
-  }
-  #delta,trans,param
-  FA = forward(data = data, HM = HM)
-  BA = backward(data = data, HM = HM)
-  likelihood =  sum(FA[,length(data)])
-  return(FA[state,state_time]*BA[state,state_time]/likelihood)
+state_prob = function(state,state_time,HM,X){
+  n = length(X)
+  FA = forward(X = X, HM = HM)
+  BA = backward(X = X, HM = HM)
+  likelihood =  sum(FA[,n])
+  Result = FA[state,state_time]*BA[state,state_time]/likelihood
+  return(Result)
 }

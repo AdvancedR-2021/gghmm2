@@ -33,7 +33,7 @@ local_decoder = function(X,HMM){
   for (i in c(1:n)){
     prob = c(1:m)
     for (j in c(1:m)){
-      prob[j] = state_prob(state = j,state_time = i,HM=HMM,data=X)
+      prob[j] = state_prob(state = j,state_time = i,HM=HMM,X=X)
     }
     Result[i] = which.max(prob)
   }

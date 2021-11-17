@@ -11,9 +11,9 @@ forecast(pred_obs,pred_time,HMM,data)
 
 \item{pred_time}{The time at which the observation should occur}
 
-\item{data}{The vector containing the data, which the model should be based on.}
-
 \item{HMM}{A HMM object}
+
+\item{data}{The vector containing the data, which the model should be based on.}
 }
 \value{
 The probability of observing then observation at time T+n

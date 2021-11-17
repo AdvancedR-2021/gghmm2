@@ -13,7 +13,7 @@ state_prob(state,state_time,HM,data)
 
 \item{HM}{A HMM object.}
 
-\item{Data}{vector of observations.}
+\item{X}{vector of observations.}
 }
 \value{
 A numerical value between 0 and 1, which is the probability for having state 

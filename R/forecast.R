@@ -19,7 +19,7 @@
 #' @return The probability of observing then observation at time T+n
 #' @export
 #'
-forecast <- function(pred_obs,pred_time,HM=NULL,data){
+forecast <- function(pred_obs,pred_time,HM=NULL,X){
   if (!is.null(HM) ){
     trans = HM$transmision
     delta = HM$stationary_dist
@@ -33,11 +33,12 @@ forecast <- function(pred_obs,pred_time,HM=NULL,data){
   }
   
   new_trans = matrix_m(trans,pred_time)
-  alpha = forward(data = data, HM = HM)
-  theta = alpha[,length(data)]/sum(alpha[,length(data)])
+  alpha = forward(X = X, HM = HM)
+  n = length(X)
+  theta = alpha[,length(X)]/sum(alpha[,length(X)])
   emision = c(1:length(delta))
   for (i in c(1:length(delta))){
-    emision[i] = do.call(emisf[[i]], c(x=pred_ob, Param[[i]])) 
+    emision[i] = do.call(emisf[[i]], c(list(x=pred_obs), Param[[i]])) 
   }
   return(sum(new_trans %*% theta *emision)[1])
 }
