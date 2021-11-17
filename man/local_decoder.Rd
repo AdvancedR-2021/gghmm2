@@ -2,7 +2,7 @@
 % Please edit documentation in R/local_decoder.R
 \name{local_decoder}
 \alias{local_decoder}
-\title{local_decoder}
+\title{Local decoder}
 \usage{
 local_decoder(HMM,X)
 }
@@ -12,8 +12,13 @@ local_decoder(HMM,X)
 \item{HMM}{A HMM object}
 }
 \value{
-
+A vector containing the  states that are most probable given our model and data.
 }
 \description{
-
+Local_decoder calculate the states that are most probable for time frame that the data covers.
+}
+\details{
+The function uses the state_prob function to calculate which state would be most likely to yield the data. 
+Note that this is the   local decoder will give the state most probable for each separate time, and will not yield the 
+sequence of state that is most probable to emit the data. That sequence is returned by the Viterbi function.
 }

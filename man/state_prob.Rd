@@ -2,14 +2,14 @@
 % Please edit documentation in R/state_prob.R
 \name{state_prob}
 \alias{state_prob}
-\title{state_prob}
+\title{State probability}
 \usage{
 state_prob(state,state_time,HM,data)
 }
 \arguments{
-\item{state}{A Natural Numbers from 1 up to dim(HMM$transmision).}
+\item{state}{A Natural Numbers from 1 up to number of hidden states.}
 
-\item{state_time}{A Natural Numbers from 1 up to length(data).}
+\item{state_time}{A Natural Numbers from 1 up to number of ob.}
 
 \item{HM}{A HMM object.}
 
@@ -17,8 +17,8 @@ state_prob(state,state_time,HM,data)
 }
 \value{
 A numerical value between 0 and 1, which is the probability for having state 
-at time state_time given our HMM and data.
+at time state_time given the model and data.
 }
 \description{
-
+state_prob will calculate the probability of being in state at state_time based on the HMM and the data.
 }

@@ -1,0 +1,27 @@
+---
+title: "use_of_gghmm2"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{use_of_gghmm2}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r, include = FALSE}
+library(gghmm2)
+```
+
+
+\section{Background}
+
+
+
+\section{Practise}

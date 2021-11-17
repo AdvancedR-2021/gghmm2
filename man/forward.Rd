@@ -2,18 +2,23 @@
 % Please edit documentation in R/forward.R
 \name{forward}
 \alias{forward}
-\title{forward}
+\title{Forward Algorithm}
 \usage{
 forward(HM,X)
 }
 \arguments{
 \item{X}{Data}
 
-\item{HMM}{A HMM object}
+\item{HMM}{A  HMM class object}
 }
 \value{
-
+alpha_matrix A matrix of forward probabilities
 }
 \description{
-forward
+Creates a vector of forward probabilities which is used in most of the functions in this package.
+}
+\details{
+Does recursive computation of the likelihood which plays a key role in the likelihood evaluation
+and thus parameter estimation. It is also used in forecasting, decoding and model checking. The recursive nature of
+the forward algorithm is much more computationally inexpensive than brute-force summation over all possible state sequences.
 }

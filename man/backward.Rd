@@ -2,18 +2,22 @@
 % Please edit documentation in R/backward.R
 \name{backward}
 \alias{backward}
-\title{backward}
+\title{Backward Algorithm}
 \usage{
 backward(HM,X)
 }
 \arguments{
-\item{HMM}{A HMM object}
+\item{HMM}{A  HMM class object}
 
 \item{X}{Data}
 }
 \value{
-
+beta_matrix A matrix of backward probabilities
 }
 \description{
-backward
+Creates a vector of conditional probabilities which is uded in most of the functions in this package.
+}
+\details{
+Creates through a backward pass through the data a evaluation in in form of conditional probabilities 
+of the observations being x_{t+1},...,x_t given that the Markov chain is in state i at time t.
 }

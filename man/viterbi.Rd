@@ -2,7 +2,7 @@
 % Please edit documentation in R/Viterbi.R
 \name{viterbi}
 \alias{viterbi}
-\title{Viterbialgo}
+\title{Viterbi algorithm}
 \usage{
 Viterbialgo(HMM,X)
 }
@@ -12,8 +12,12 @@ Viterbialgo(HMM,X)
 \item{HMM}{A HMM object}
 }
 \value{
-
+list() Returns a list of the most likely sequence of states.
 }
 \description{
-
+Finds through dynamic programming the most likely sequence of states
+}
+\details{
+D0es Global decoding through dynamic programming. It is not feasible to maximize over all possible states
+because this would run in O(m^t). Thus Viterbi is used as an alternative to this approach.
 }

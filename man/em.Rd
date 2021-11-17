@@ -2,7 +2,7 @@
 % Please edit documentation in R/EM.R
 \name{em}
 \alias{em}
-\title{em}
+\title{Expectation–Maximization (EM) Algorithm}
 \usage{
 em(HMM,X)
 }
@@ -12,8 +12,15 @@ em(HMM,X)
 \item{HMM}{A HMM object}
 }
 \value{
-
+HMM Returns an updated HMM object
 }
 \description{
-
+The EM algorithm finds the maximum-likelihood estimates of a HMM.
+}
+\details{
+Is an iterative method to find a local maximum likelihood or a maximum poosteriori estimates of parameters in a 
+statistical model, where the model depends on hidden variables. The EM alternates between performing an expectation step, 
+which creates a function for the expectation of the log-likelihood evaluated using the curretn estimate for the parameters, 
+and a maximation step, which computes the parameters, which maximize the expected log-likelihood found in the E step. This 
+is then iterated.
 }

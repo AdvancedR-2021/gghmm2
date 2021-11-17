@@ -1,6 +1,6 @@
-Package: spatstatfibpattern
+Package: gghmm2
 Type: Package
-Title: spatstatfibpattern
+Title: gghmm2
 Version: 0.2.0
 Author: Ajay, Esben and Simon
 Maintainer: The package maintainer <yourself@somewhere.net>
