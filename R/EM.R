@@ -8,12 +8,13 @@
 #' and a maximation step, which computes the parameters, which maximize the expected log-likelihood found in the E step. This 
 #' is then iterated.
 #' 
-#' @usage em(HMM,X)
+#' @usage em(HM,X)
 #' 
-#' @param HMM A HMM object
+#' @param HM A HMM object
 #' @param X  Data
 #' @include HMMclass.R forward.R backward.R 
 #' @return HMM Returns an updated HMM object
+#' @import stats
 #' @export
 #' 
 #'
@@ -65,7 +66,7 @@ em <- function(HM,X){
     }
     else{
       name <- names(param[[k]])
-      param[[k]] = list(nlm(f = neglikeli,p = unlist(param[[k]]),parloc=k,HM=HM,X=X)$estimate)
+      param[[k]] = list(stats::nlm(f = neglikeli,p = unlist(param[[k]]),parloc=k,HM=HM,X=X)$estimate)
       names(param[[k]]) <- name
     }
     

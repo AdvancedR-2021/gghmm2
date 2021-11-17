@@ -3,13 +3,13 @@
 #' @description Finds through dynamic programming the most likely sequence of states
 #' 
 #' 
-#' @details D0es Global decoding through dynamic programming. It is not feasible to maximize over all possible states
+#' @details Does Global decoding through dynamic programming. It is not feasible to maximize over all possible states
 #' because this would run in O(m^t). Thus Viterbi is used as an alternative to this approach. 
 #' 
 #' 
-#' @usage Viterbialgo(HMM,X)
+#' @usage viterbi(HM,X)
 #'
-#' @param HMM A HMM object
+#' @param HM A HMM object
 #' @param X  Data
 #'
 #' @return list() Returns a list of the most likely sequence of states.

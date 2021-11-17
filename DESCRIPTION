@@ -12,6 +12,9 @@ RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown
+Imports: 
+    tibble,
+    stats
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10) 

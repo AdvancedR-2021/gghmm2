@@ -4,12 +4,12 @@
 \alias{em}
 \title{Expectation–Maximization (EM) Algorithm}
 \usage{
-em(HMM,X)
+em(HM,X)
 }
 \arguments{
-\item{X}{Data}
+\item{HM}{A HMM object}
 
-\item{HMM}{A HMM object}
+\item{X}{Data}
 }
 \value{
 HMM Returns an updated HMM object

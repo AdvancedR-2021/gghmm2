@@ -3,19 +3,19 @@
 \docType{data}
 \name{earthquakes}
 \alias{earthquakes}
-\title{Dataset with lurking varible}
+\title{earthquakes}
 \format{
-A data frame with 500 rows and 3 variables:
+A data frame with 107 rows and 2 variables:
 \describe{
-  \item{X}{The first variable wich is created out from Z}
-  \item{Y}{The second variable there is created out from Z}
+  \item{Year}{The year of the measurement}
+  \item{n}{The number of major earthquakes measueret}
 }
 }
 \usage{
 data(earthquakes)
 }
 \description{
-A dataset containing two variables with are both generated from a model
-dependted on the third variable Z.
+A dataset over the annual count of major earthquakes for the year 1900 to 2006.
+Major earthquakes refer to earthquakes with a magnitude of 7 or above.
 }
 \keyword{datasets}

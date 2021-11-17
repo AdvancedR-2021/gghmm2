@@ -3,11 +3,11 @@
 #' @description The function will give the probability of observing pred_obs at time 
 #' pred_time. 
 #' 
-#' @usage forecast(pred_obs,pred_time,HMM,data)
+#' @usage forecast(pred_obs,pred_time,HM,X)
 #'
 #' @param pred_obs The observation we would like to predict
 #' @param pred_time The time at which the observation should occur
-#' @param HMM A HMM object
+#' @param HM A HMM object
 #' @param data The vector containing the data, which the model should be based on.
 #' 
 #' @details Note that the time we are prediction on, is not the time after the model has started,
@@ -19,7 +19,7 @@
 #' @return The probability of observing then observation at time T+n
 #' @export
 #'
-forecast <- function(pred_obs,pred_time,HM=NULL,X){
+forecast <- function(pred_obs,pred_time,HM,X){
   if (!is.null(HM) ){
     trans = HM$transmision
     delta = HM$stationary_dist

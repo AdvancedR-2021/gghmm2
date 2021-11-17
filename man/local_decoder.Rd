@@ -4,12 +4,12 @@
 \alias{local_decoder}
 \title{Local decoder}
 \usage{
-local_decoder(HMM,X)
+local_decoder(HM,X)
 }
 \arguments{
 \item{X}{Data}
 
-\item{HMM}{A HMM object}
+\item{HM}{A HMM object}
 }
 \value{
 A vector containing the  states that are most probable given our model and data.

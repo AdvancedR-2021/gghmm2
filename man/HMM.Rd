@@ -4,7 +4,7 @@
 \alias{HMM}
 \title{The hidden markov model}
 \usage{
-HMM(stationary_dist,transmission , emission_function_names, parameters)
+HMM(stationary_dist,transmision , emission_function_names, parameters)
 }
 \arguments{
 \item{stationary_dist}{numerical vector of the stationary distribution}
@@ -18,7 +18,7 @@ HMM(stationary_dist,transmission , emission_function_names, parameters)
 \item{state_names}{vector of names for each state}
 }
 \value{
-A  HMM class object
+A HMM class object
 }
 \description{
 A S3 class that can be used to define a hidden markov model, which can then be used by the ther functions in this package.
@@ -38,15 +38,9 @@ is used to get the function. Here it is important to note that if the user speci
 distribution function, then it is necessary for the quantile parameter to be called x.
 }
 \examples{
-ddnorm = function(x,mean,sd){return(x+mean+sd)}
-delta = c(0.3,0.7)
-MM= matrix(c(1,2,3,4),2,2)
-nn= c("ddnorm","dnorm")
-parameters = list(list(mean=5,sd=2),list(mean=4,sd=3))
-HM = HMM(stationary_dist=delta,transmision =MM,emission_function_names=nn,parameters =parameters)
-params <- tibble(param= list(list(mean=5, sd=4),list(mean=3, sd=2)))
-PP = HM$param
-func= HM$emission_func
-do.call(func[[1]], c(x=1, PP[[1]]))
-do.call(func[[2]], c(x=1, PP[[2]]))
+X <- earthquakes$n
+delta = c(0.5,0.5)
+lambdaL=c(10,30)
+trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
+HM = HMM(stationary_dist = delta,transmision = trans,  emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),list(lambda=30)) )
 }

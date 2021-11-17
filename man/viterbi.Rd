@@ -4,12 +4,12 @@
 \alias{viterbi}
 \title{Viterbi algorithm}
 \usage{
-Viterbialgo(HMM,X)
+viterbi(HM,X)
 }
 \arguments{
-\item{X}{Data}
+\item{HM}{A HMM object}
 
-\item{HMM}{A HMM object}
+\item{X}{Data}
 }
 \value{
 list() Returns a list of the most likely sequence of states.
@@ -18,6 +18,6 @@ list() Returns a list of the most likely sequence of states.
 Finds through dynamic programming the most likely sequence of states
 }
 \details{
-D0es Global decoding through dynamic programming. It is not feasible to maximize over all possible states
+Does Global decoding through dynamic programming. It is not feasible to maximize over all possible states
 because this would run in O(m^t). Thus Viterbi is used as an alternative to this approach.
 }

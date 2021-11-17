@@ -7,9 +7,9 @@
 forward(HM,X)
 }
 \arguments{
-\item{X}{Data}
+\item{HM}{A  HMM class object}
 
-\item{HMM}{A  HMM class object}
+\item{X}{Data}
 }
 \value{
 alpha_matrix A matrix of forward probabilities
