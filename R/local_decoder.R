@@ -19,7 +19,6 @@
 #' 
 #'
 
-
 local_decoder = function(X,HM){
   if (!is.null(HM) ){
     trans = HM$transmision
