@@ -19,12 +19,6 @@ knitr::opts_chunk$set(
 library(gghmm2)
 ```
 
-
-
-\section{Background}
-
-
-
 \section{Practise}
 To see how the package works, we will cover a example of it, using the earthquakes data contained in the package. First we load that dataset and build the model we will be using. Here we use the HMM function to create the model. 
 
@@ -48,24 +42,25 @@ sum(FM[,n])
 BM = backward(HM,X)
 ```
 
-To find the probability of being at 
+To find the probability of being at a certain state $state$ at a time $state_time$, we can use state_prob. Again the user also need to provide a model as $HMM$ and the data as $X$. Note that we cannot calculate the  probability for a time bigger then the size of the data. So if we have a sequence of $10$ observation, then $ state_time$ cannot be larger then $10$. 
 ```{r}
 state_prob(state = 1, state_time = 10, HM = HM, X = X)
 ```
-
+The package also have both a local and global decoder. The local decoder function is called $local_decoder$ and will return a vector of hidden states.   
 ```{r}
 local_decoder(X,HM)
 ```
-
+The global decoder is called Viterbi and will return a list. The list contains the path with the highest probability of emitting  $X$ and the probability  of getting this path. 
 
 ```{r}
 viterbi(HM,X)
 ```
 
+The forecast function allow the used to check what the probability of getting a state at a time in furture will be. Here the user need to provide the state as a index as the variable pred_obs, and the time as pred_time. 
 ```{r}
-forecast(3,10,HM=HM,X=X)
+forecast(2,10,HM=HM,X=X)
 ```
-
+To last the user can use the Expectation–maximization algorithm to fit their data to a HMM. Here the user need to provide the data and a HMM object, which contain the initial guess for the parameters. The function will return HMM obejct, but now with the new parameters. 
 ```{r}
 HM2 = em(HM,X)
 HM2

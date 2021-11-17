@@ -1,16 +1,16 @@
-#' Dataset with lurking varible
+#' earthquakes
 #'
-#' A dataset containing two variables with are both generated from a model
-#' dependted on the third variable Z.
+#' A dataset over the annual count of major earthquakes for the year 1900 to 2006.
+#' Major earthquakes refer to earthquakes with a magnitude of 7 or above. 
 #'
 #' @docType data
 #'
 #' @usage data(earthquakes)
 #'
-#' @format A data frame with 500 rows and 3 variables:
+#' @format A data frame with 107 rows and 2 variables:
 #' \describe{
-#'   \item{X}{The first variable wich is created out from Z}
-#'   \item{Y}{The second variable there is created out from Z}
+#'   \item{Year}{The year of the measurement}
+#'   \item{n}{The number of major earthquakes measueret}
 #' }
 #' 
 #'

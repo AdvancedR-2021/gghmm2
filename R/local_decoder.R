@@ -2,7 +2,7 @@
 #'
 #' @description Local_decoder calculate the states that are most probable for time frame that the data covers.
 #' 
-#' @usage local_decoder(HMM,X)
+#' @usage local_decoder(HM,X)
 #' 
 #' @include HMMclass.R
 #' 
@@ -10,7 +10,7 @@
 #' Note that this is the   local decoder will give the state most probable for each separate time, and will not yield the 
 #' sequence of state that is most probable to emit the data. That sequence is returned by the Viterbi function. 
 #'
-#' @param HMM A HMM object
+#' @param HM A HMM object
 #' @param X Data
 #' 
 #' @include HMMclass.R state_prob.R 
@@ -20,12 +20,12 @@
 #'
 
 
-local_decoder = function(X,HMM){
-  if (!is.null(HMM) ){
-    trans = HMM$transmision
-    delta = HMM$stationary_dist
-    Param = HMM$param
-    emisf = HMM$emission_func
+local_decoder = function(X,HM){
+  if (!is.null(HM) ){
+    trans = HM$transmision
+    delta = HM$stationary_dist
+    Param = HM$param
+    emisf = HM$emission_func
   }
   n = length(X)
   m = length(delta)
@@ -33,7 +33,7 @@ local_decoder = function(X,HMM){
   for (i in c(1:n)){
     prob = c(1:m)
     for (j in c(1:m)){
-      prob[j] = state_prob(state = j,state_time = i,HM=HMM,X=X)
+      prob[j] = state_prob(state = j,state_time = i,HM=HM,X=X)
     }
     Result[i] = which.max(prob)
   }

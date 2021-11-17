@@ -2,7 +2,7 @@
 #'
 #' @description state_prob will calculate the probability of being in state at state_time based on the HMM and the data. 
 #' 
-#' @usage state_prob(state,state_time,HM,data)
+#' @usage state_prob(state,state_time,HM,X)
 #'
 #' @param state A Natural Numbers from 1 up to number of hidden states.
 #' @param state_time A Natural Numbers from 1 up to number of ob.

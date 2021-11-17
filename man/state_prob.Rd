@@ -4,7 +4,7 @@
 \alias{state_prob}
 \title{State probability}
 \usage{
-state_prob(state,state_time,HM,data)
+state_prob(state,state_time,HM,X)
 }
 \arguments{
 \item{state}{A Natural Numbers from 1 up to number of hidden states.}

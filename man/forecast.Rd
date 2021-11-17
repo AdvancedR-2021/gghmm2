@@ -4,14 +4,14 @@
 \alias{forecast}
 \title{Forecast}
 \usage{
-forecast(pred_obs,pred_time,HMM,data)
+forecast(pred_obs,pred_time,HM,X)
 }
 \arguments{
 \item{pred_obs}{The observation we would like to predict}
 
 \item{pred_time}{The time at which the observation should occur}
 
-\item{HMM}{A HMM object}
+\item{HM}{A HMM object}
 
 \item{data}{The vector containing the data, which the model should be based on.}
 }

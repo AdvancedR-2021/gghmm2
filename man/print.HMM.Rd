@@ -4,7 +4,7 @@
 \alias{print.HMM}
 \title{print.HMM}
 \usage{
-print(HMM())
+print(HMM)
 }
 \arguments{
 \item{HMM}{A HMM class object.}
