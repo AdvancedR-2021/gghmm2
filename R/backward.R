@@ -10,7 +10,7 @@
 #' 
 #' @include HMMclass.R
 #' 
-#' @param HMM A  HMM class object 
+#' @param HM A  HMM class object 
 #' @param X  Data
 #' @return beta_matrix A matrix of backward probabilities 
 #' 

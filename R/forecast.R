@@ -8,7 +8,7 @@
 #' @param pred_obs The observation we would like to predict
 #' @param pred_time The time at which the observation should occur
 #' @param HM A HMM object
-#' @param data The vector containing the data, which the model should be based on.
+#' @param X The vector containing the data, which the model should be based on.
 #' 
 #' @details Note that the time we are prediction on, is not the time after the model has started,
 #' but after the observed data has been observed. So if there is n observation in the data,

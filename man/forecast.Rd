@@ -13,7 +13,7 @@ forecast(pred_obs,pred_time,HM,X)
 
 \item{HM}{A HMM object}
 
-\item{data}{The vector containing the data, which the model should be based on.}
+\item{X}{The vector containing the data, which the model should be based on.}
 }
 \value{
 The probability of observing then observation at time T+n

@@ -13,7 +13,7 @@ HMM(stationary_dist,transmision , emission_function_names, parameters)
 
 \item{emission_function_names}{vector of names for emission functions}
 
-\item{parameters}{list of list, where each list containing the parameters need in the emision functions}
+\item{parameters}{list of list, where each list containing the parameters need in the emission functions}
 
 \item{state_names}{vector of names for each state}
 }
@@ -42,5 +42,8 @@ X <- earthquakes$n
 delta = c(0.5,0.5)
 lambdaL=c(10,30)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
-HM = HMM(stationary_dist = delta,transmision = trans,  emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),list(lambda=30)) )
+HM = HMM(stationary_dist = delta,transmision = trans,  
+emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),
+list(lambda=30)) )
+HM
 }

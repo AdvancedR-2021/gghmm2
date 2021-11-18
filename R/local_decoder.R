@@ -2,7 +2,7 @@
 #'
 #' @description Local_decoder calculate the states that are most probable for time frame that the data covers.
 #' 
-#' @usage local_decoder(HM,X)
+#' @usage local_decoder(X,HM)
 #' 
 #' @include HMMclass.R
 #' 

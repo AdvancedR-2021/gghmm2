@@ -4,7 +4,7 @@
 \alias{local_decoder}
 \title{Local decoder}
 \usage{
-local_decoder(HM,X)
+local_decoder(X,HM)
 }
 \arguments{
 \item{X}{Data}

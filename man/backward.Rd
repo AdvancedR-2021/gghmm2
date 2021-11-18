@@ -7,9 +7,9 @@
 backward(HM,X)
 }
 \arguments{
-\item{X}{Data}
+\item{HM}{A  HMM class object}
 
-\item{HMM}{A  HMM class object}
+\item{X}{Data}
 }
 \value{
 beta_matrix A matrix of backward probabilities
