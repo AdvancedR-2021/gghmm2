@@ -26,18 +26,30 @@ knitr::opts_chunk$set(echo = TRUE)
 - Test functions and add warnings  
 
 ## Finish version
+
+Priority 1:
+
 - Deal with underflow 
 
 - Add stationary option / deal with problem in the vignette
 
 - add more distributions to EM
 
-- consider add more functionality to HMM class. 
-
-- explain parameters in HMM class better . 
-
-- optimize code (look at viterbi)
+- explain parameters in HMM class better + simplify the parameter 
 
 - add tidyverse/tibble to documentation.  
 
+- add warning to HMM and other functions
 
+Priority 2:
+
+- consider add more functionality to HMM class. Consider adding option for it to run the EM algo if the user supply data. 
+
+- Standardizing of Parameters.
+
+- add background to vignette 
+
+- replace $ with * in vignette 
+
+Priority 3:
+- optimize code (look at viterbi)
