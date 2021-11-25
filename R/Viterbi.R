@@ -14,7 +14,14 @@
 #'
 #' @return list() Returns a list of the most likely sequence of states.
 #' @export
-#'
+#' @examples 
+#' #X = read.table("http://www.hmms-for-time-series.de/second/data/earthquakes.txt")[,2]
+#' delta = c(0.5,0.5)
+#' lambdaL=c(10,30)
+#' trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
+#' hm = HMM(stationary_dist = delta,transmision = trans,emission_function_names = c("dpois","dpois"),parameters = list(list(lambda =10),list(lambda =30)))
+#' viterbi(hm,X)
+
 viterbi = function(HM,X){
   if (!is.null(HM) ){
     trans = HM$transmision
@@ -28,9 +35,7 @@ viterbi = function(HM,X){
   maxindex = matrix(0,m,t)
   x=X
   for (i in c(1:m)){
-    
     epsilon[i,1] = delta[i] * do.call(emisf[[i]],c(list(x=x[1]),param[[i]]))
-    
   }
   for (i in c(2:t)){
     for (j in c(1:m)){
@@ -47,12 +52,4 @@ viterbi = function(HM,X){
   return(list(path=path,path_prob=max(epsilon[,t])))
 }
 
-#X = read.table("http://www.hmms-for-time-series.de/second/data/earthquakes.txt")[,2]
-#delta = c(0.5,0.5)
 
-#lambdaL=c(10,30)
-#trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
-
-#hm = HMM(stationary_dist = delta,transmision = trans,emission_function_names = c("dpois","dpois"),parameters = list(list(lambda =10),list(lambda =30)))
-
-#Result2= viterbi(hm,X)
