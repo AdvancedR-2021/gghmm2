@@ -28,6 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Finish version
 
 Priority 1:
+- Add into to vignette
 
 - Deal with underflow 
 
