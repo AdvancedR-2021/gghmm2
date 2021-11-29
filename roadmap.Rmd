@@ -29,17 +29,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Priority 1:
 
-- Deal with underflow 
+- Deal with underflow # Esben
 
 - Add stationary option / deal with problem in the vignette
 
-- add more distributions to EM
+- add more distributions to EM # Simon 
 
-- explain parameters in HMM class better + simplify the parameter 
+- explain parameters in HMM class better + simplify the parameter # Simon
 
 - add tidyverse/tibble to documentation.  
 
-- add warning to HMM and other functions
+- add warning to HMM and other functions # Esben
 
 Priority 2:
 
@@ -47,7 +47,7 @@ Priority 2:
 
 - Standardizing of Parameters.
 
-- add background to vignette 
+- add background to vignette # Esben
 
 - replace $ with * in vignette 
 
