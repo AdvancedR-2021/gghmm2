@@ -8,21 +8,30 @@
 #' of strings, where each string is the name of the density function to be used 
 #' for that hidden state. The parameters for each hidden state are kept in a list 
 #' of list, where each list contain the named parameters for the relevant distribution. 
+#' 
 #' It is important that they are named, as this allow the do.call function to use parameters 
-#' in the distribution function. The class has its own print function, which will 
+#' in the distribution function. 
+#' 
+#' The class has its own print function, which will 
 #' print out the parameter for the HHM. The user can use their own density function, 
-#' if R does not have  then one they want to use. However then it will be required 
-#' that the function is defined in the current environment as the function "get", 
-#' is used to get the function. Here it is important to note that if the user specify their own
+#' if R does not have then one they want to use. However then it will be required 
+#' that the function is defined in the current environment. To ensure this it may 
+#' be necessary for the users custom function to be defined in the same 
+#' environment as the HMM function. 
+#'  
+#' Here it is important to note that if the user specify their own
 #' distribution function, then it is necessary for the quantile parameter to be called x. 
 #'
-#' @usage HMM(stationary_dist,transmision , emission_function_names, parameters)
+#' 
+#'
+#' @usage HMM(stationary_dist,transmission , emission_function_names, parameters)
 #'
 #' @param stationary_dist  numerical vector of the stationary distribution
-#' @param transmision  numerical matrix containing the transmission probabilities 
+#' @param transmission  numerical matrix containing the transmission probabilities 
 #' @param emission_function_names vector of names for emission functions 
-#' @param parameters  list of list, where each list containing the parameters need in the emission functions
+#' @param parameters  list of list, where each list containing the parameters needed in the corresponding emission function
 #' @param state_names vector of names for each state 
+#' @param nparams vector of the numbers of parameters that each 
 #'
 #' @return A HMM class object 
 #' @import tibble
@@ -30,20 +39,30 @@
 #' @examples 
 #' X <- earthquakes$n
 #' delta = c(0.5,0.5)
-#' lambdaL=c(10,30)
 #' trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
-#' HM = HMM(stationary_dist = delta,transmision = trans,  
+#' HM = HMM(stationary_dist = delta,transmission = trans,  
 #' emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),
 #' list(lambda=30)) )
 #' HM
 
-HMM <- function(stationary_dist,transmision,
-                emission_function_names,parameters  ,state_names = NULL,...){
+HMM <- function(stationary_dist, # replace with  initial_dist in the entire package
+                transmission,
+                emission_function_names,parameters, nparams=NULL,state_names = NULL,...){
   if (is.null(state_names)){
     state_names = c(1:length(stationary_dist))
   }
+  if (!is.vector(stationary_dist) | sum(stationary_dist)!= 1) {stop("The initial distribution needs to be a vector and sum to 1")}
+  if (!is.matrix(transmission)) {stop("The transmission matrix needs to be a matrix")}
+  d1 = length(stationary_dist)
+  d2= dim(transmission)
+  d3 = length(emission_function_names)
+  d4 = length(parameters)
+  if (d2[1] != d2[2]) {stop("The transmission matrix need to be a Square matrix")}
+  if (d1 != d2[2]) {stop("The transmission matrix and the vector of initial distribution need to have the same dimensions")}
+  if (d1 != d3) {stop("The number of emission function need to be the same as the number of initial distributions " )}
+  
   emission_function = sapply(emission_function_names,get)
-  lisst <- tibble::tibble(stationary_dist=stationary_dist,transmision = transmision ,
+  lisst <- tibble::tibble(stationary_dist=stationary_dist,transmision = transmission ,
                   emission_func=emission_function,
                   emission_function_names=emission_function_names, 
                   param = parameters , state_names = state_names)
