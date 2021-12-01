@@ -28,17 +28,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Finish version
 
 Priority 1:
-- Add into to vignette
+- Add into to vignette - Done
 
 - Deal with underflow # Simon - Done
 
 - Add stationary option / deal with problem in the vignette - Done
 
-- add more distributions to EM # Simon 
+- add more distributions to EM # Simon - Done
 
 - explain parameters in HMM class better + simplify the parameter # Simon
 
-- add tidyverse/tibble to documentation.  
+- add tidyverse/tibble to documentation.- Partly Done 
 
 - add warning to HMM and other functions # Esben - Done
 
