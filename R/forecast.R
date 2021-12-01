@@ -26,6 +26,7 @@ forecast <- function(pred_obs,pred_time,HM,X){
     Param = HM$param
     emisf = HM$emission_func
   }
+  if (class(HM)[1] !="HMM") {stop("The HM has been build wrong")}
   matrix_m = function(QQ,q){
     if (q<2){return(QQ)} else
     {A = QQ %*% QQ

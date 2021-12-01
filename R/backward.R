@@ -24,6 +24,7 @@ backward <- function(HM,X){
     param = HM$param
     emisf = HM$emission_func
   }
+  if (class(HM)[1] !="HMM") {stop("The HM has been build wrong")}
   m = dim(trans)[1]
   t = length(X)
   beta_matrix= matrix(1,m,t)
