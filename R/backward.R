@@ -12,12 +12,16 @@
 #' 
 #' @param HM A  HMM class object 
 #' @param X  Data
+#' @param log_sum True or False
+#' 
 #' @return beta_matrix A matrix of backward probabilities 
 #' 
 #' @include HMMclass.R 
 #' @export
 #' 
-backward <- function(HM,X){
+
+
+backward <- function(HM,X,log_sum=F){
   if (!is.null(HM) ){
     trans = HM$transmision
     delta = HM$stationary_dist
@@ -27,6 +31,21 @@ backward <- function(HM,X){
   if (class(HM)[1] !="HMM") {stop("The HM has been build wrong")}
   m = dim(trans)[1]
   t = length(X)
+  if (log_sum==T){
+    beta_matrix= matrix(0,m,t)
+    for (i in rev(c(1:(t-1)))){
+      at = max(beta_matrix[,i+1])
+      for (j in c(1:m)){
+        empty_vec = c(1:m)
+        for (a in c(1:m)){
+          empty_vec[a] = do.call(emisf[[a]],c(list(x=X[i+1]),param[[a]]))
+        }
+        beta_matrix[j,i] = log(sum(empty_vec *  exp(beta_matrix[,i+1]-at) * trans[j,]))+at
+        
+      }
+    }
+  }
+  else{
   beta_matrix= matrix(1,m,t)
   for (i in rev(c(1:(t-1)))){
     for (j in c(1:m)){
@@ -36,6 +55,6 @@ backward <- function(HM,X){
       }
       beta_matrix[j,i] = sum(empty_vec*  beta_matrix[,i+1] * trans[j,])
     }
-  }
+  }}
   return( beta_matrix)
 }
