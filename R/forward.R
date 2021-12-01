@@ -23,6 +23,7 @@ forward <- function(HM,X){
     param = HM$param
     emisf = HM$emission_func
   }
+  if (class(HM)[1] !="HMM") {stop("The HM has been build wrong")}
   m = dim(trans)[1]
   t = length(X)
   alpha_matrix = matrix(c(0),m,t)

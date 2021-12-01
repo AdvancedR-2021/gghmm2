@@ -17,6 +17,7 @@
 #'
 #'
 state_prob = function(state,state_time,HM,X){
+  if (class(HM)[1] !="HMM") {stop("The HM has been build wrong")}
   n = length(X)
   FA = forward(X = X, HM = HM)
   BA = backward(X = X, HM = HM)

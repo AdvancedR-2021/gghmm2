@@ -29,6 +29,7 @@ viterbi = function(HM,X){
     param = HM$param
     emisf = HM$emission_func
   }
+  if (class(HM)[1] !="HMM") {stop("The HM has been build wrong")}
   t <- length(X)
   m <- length(param)
   epsilon = matrix(0,m,t)

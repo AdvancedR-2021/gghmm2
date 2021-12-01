@@ -26,6 +26,7 @@ local_decoder = function(X,HM){
     Param = HM$param
     emisf = HM$emission_func
   }
+  if (class(HM)[1] !="HMM") {stop("The HM has been build wrong")}
   n = length(X)
   m = length(delta)
   Result = c(1:n)
