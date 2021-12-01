@@ -35,7 +35,10 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
     delta = HM$stationary_dist
     param = HM$param
     emisf = HM$emission_func
+    emisfname = HM$emission_function_names
+    
   }
+  
   
   neglikeli = function(newpar, parloc, HM, X){
     name <- names(HM$param[[parloc]])
@@ -74,12 +77,12 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
   
   
   for (k in c(1:m)){
-    if (emisf[k]=="dpois"){
-      param[[k]] = sum(X*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood))
+    if (emisfname[k]=="dpois"){
+      param[[k]] = list(lambda= sum(X*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood)))
     }
-    else if (emisf[k]=="dnorm"){
-      param[[k]]$mean =   sum(X*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood))
-      param[[k]]$var =  sum((X-param[[k]]$mean)*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood))
+    else if (emisfname[k]=="dnorm"){
+      param[[k]]$mean = list(mean=  sum(X*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood)))
+      param[[k]]$var =list(sd =   sqrt(sum((X-param[[k]]$mean)*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood))) )
     }
     
     else{
@@ -102,12 +105,14 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
   if (L[LL] > L[LL-1]){
     HM$transmision = trans 
     HM$stationary_dist = delta
+    NN = names(HM$param)
     HM$param = param
     u=u+1
   } else {
     if (u>0){
       warning(paste("EM algoprithm has stopped after" ,u, "iterations as the likelihood did not increase in the" ,u+1, "iteration",
                     "Consider trying other starting values, as the algorithm may have fallen into a local maximum"))
+      print(u)
       return(HM)
     } else{
       stop("EM algoprithm cannot run as the likelihood is not increasing.
@@ -122,5 +127,3 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
 }
 
 
-
- 

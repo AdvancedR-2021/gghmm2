@@ -10,6 +10,8 @@ backward(HM,X)
 \item{HM}{A  HMM class object}
 
 \item{X}{Data}
+
+\item{log_sum}{True or False}
 }
 \value{
 beta_matrix A matrix of backward probabilities
