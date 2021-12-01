@@ -18,8 +18,13 @@ knitr::opts_chunk$set(
 ```{r, include = FALSE}
 library(gghmm2)
 ```
+\section{Hidden Markov model}
+Hidden Markov model (HMM) is a statistical Markov model where the system in question is being model by a Markov process $C$ with hidden states. In other words $C$ - which will be called the hidden state -  can not be observed directly so we instead model on $X$ which from now on will be called the observable states. Thus we learn about $C$ at $t=t_0$ from $X$ at $t=t_0$.
 
-\section{Practise}
+![alt text here](HMM.webp)
+
+
+\section{The package}
 To see how the package works, we will cover a example of it, using the earthquakes data contained in the package. First we load that dataset and build the model we will be using. Here we use the HMM function to create the model. 
 
 ```{r}
