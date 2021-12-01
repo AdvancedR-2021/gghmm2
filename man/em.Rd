@@ -10,6 +10,10 @@ em(HM,X)
 \item{HM}{A HMM object}
 
 \item{X}{Data}
+
+\item{tol}{tolerance of percentage change between likelihoods from different iterations}
+
+\item{maxiter}{the maximum number of iteration the algorithm will run}
 }
 \value{
 HMM Returns an updated HMM object
@@ -23,4 +27,13 @@ statistical model, where the model depends on hidden variables. The EM alternate
 which creates a function for the expectation of the log-likelihood evaluated using the curretn estimate for the parameters, 
 and a maximation step, which computes the parameters, which maximize the expected log-likelihood found in the E step. This 
 is then iterated.
+}
+\examples{
+ X <- earthquakes$n
+delta = c(0.5,0.5)
+trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
+HM = HMM(stationary_dist = delta,transmission = trans,  
+        emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),list(lambda=30)) )
+em(HM=HM,X=X)
+
 }

@@ -4,16 +4,18 @@
 \alias{HMM}
 \title{The hidden markov model}
 \usage{
-HMM(stationary_dist,transmision , emission_function_names, parameters)
+HMM(stationary_dist,transmission , emission_function_names, parameters)
 }
 \arguments{
 \item{stationary_dist}{numerical vector of the stationary distribution}
 
-\item{transmision}{numerical matrix containing the transmission probabilities}
+\item{transmission}{numerical matrix containing the transmission probabilities}
 
 \item{emission_function_names}{vector of names for emission functions}
 
-\item{parameters}{list of list, where each list containing the parameters need in the emission functions}
+\item{parameters}{list of list, where each list containing the parameters needed in the corresponding emission function}
+
+\item{nparams}{vector of the numbers of parameters that each}
 
 \item{state_names}{vector of names for each state}
 }
@@ -29,20 +31,25 @@ of each hidden state with its parameters. The distribution will come as a vector
 of strings, where each string is the name of the density function to be used 
 for that hidden state. The parameters for each hidden state are kept in a list 
 of list, where each list contain the named parameters for the relevant distribution. 
+
 It is important that they are named, as this allow the do.call function to use parameters 
-in the distribution function. The class has its own print function, which will 
+in the distribution function. 
+
+The class has its own print function, which will 
 print out the parameter for the HHM. The user can use their own density function, 
-if R does not have  then one they want to use. However then it will be required 
-that the function is defined in the current environment as the function "get", 
-is used to get the function. Here it is important to note that if the user specify their own
+if R does not have then one they want to use. However then it will be required 
+that the function is defined in the current environment. To ensure this it may 
+be necessary for the users custom function to be defined in the same 
+environment as the HMM function. 
+ 
+Here it is important to note that if the user specify their own
 distribution function, then it is necessary for the quantile parameter to be called x.
 }
 \examples{
 X <- earthquakes$n
 delta = c(0.5,0.5)
-lambdaL=c(10,30)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
-HM = HMM(stationary_dist = delta,transmision = trans,  
+HM = HMM(stationary_dist = delta,transmission = trans,  
 emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),
 list(lambda=30)) )
 HM

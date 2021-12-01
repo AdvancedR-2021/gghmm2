@@ -21,3 +21,11 @@ Finds through dynamic programming the most likely sequence of states
 Does Global decoding through dynamic programming. It is not feasible to maximize over all possible states
 because this would run in O(m^t). Thus Viterbi is used as an alternative to this approach.
 }
+\examples{
+#X = read.table("http://www.hmms-for-time-series.de/second/data/earthquakes.txt")[,2]
+delta = c(0.5,0.5)
+lambdaL=c(10,30)
+trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
+hm = HMM(stationary_dist = delta,transmision = trans,emission_function_names = c("dpois","dpois"),parameters = list(list(lambda =10),list(lambda =30)))
+viterbi(hm,X)
+}
