@@ -29,7 +29,7 @@
 #' em(HM=HM,X=X)
 #'
 
-em <- function(HM,X,tol = 0.001 , maxiter = 100){
+em <- function(HM,X,tol = 10^-9 , maxiter = 100){
   if (!is.null(HM) ){
     trans = HM$transmision
     delta = HM$stationary_dist
@@ -41,45 +41,45 @@ em <- function(HM,X,tol = 0.001 , maxiter = 100){
     name <- names(HM$param[[parloc]])
     HM$param[[parloc]]= as.list(newpar)
     names(HM$param[[parloc]]) <- name
-    FA = forward(HM,X)
+    FA = forward(HM,X,log_sum=T)
     t = length(X)
-    likelihood =  sum(FA[,t])
+    likelihood =log(sum(exp(FA[,ncol(FA)]- max(FA[,ncol(FA)]))))+ max(FA[,ncol(FA)])
     
-    return(-log(likelihood))
+    return(-likelihood)
   }
   
   m = dim(trans)[1]
   t = length(X)
   
-  FA = forward(HM,X)
-  BA =backward(HM,X)
-  likelihood =  sum(FA[,t])
-  L= c(likelihood*0.1,likelihood)
+  FA = forward(HM,X,log_sum=T)
+  BA = backward(HM,X,log_sum=T)
+  likelihood =log(sum(exp(FA[,ncol(FA)]- max(FA[,ncol(FA)]))))+ max(FA[,ncol(FA)])
+  L= c(likelihood*10,likelihood)
   u=0
   HM1=HM
-  while(maxiter>u & (L[length(L)]- L[length(L)-1])/L[length(L)-1]>tol){
+  while(maxiter>u & abs(L[length(L)]- L[length(L)-1])/abs(L[length(L)-1])>tol){
     
   Statetrans = matrix(1,m,m)
   for (i in c(1:m)){
     for (j in c(1:m)){
       temp=0
       for (l in c(2:t)){
-    temp = temp+ FA[i,(l-1)]*trans[i,j]* do.call(emisf[[j]],c(list(x=X[l]),param[[j]]))*BA[j,l]/likelihood }
+    temp = temp+ exp(FA[i,(l-1)])*trans[i,j]* do.call(emisf[[j]],c(list(x=X[l]),param[[j]]))*exp(BA[j,l])/exp(likelihood) }
       Statetrans[i,j] = temp
     }
   }
-  delta =   FA[,1]*BA[,1]/likelihood
+  delta =   exp(FA[,1]+BA[,1]-likelihood)
   col_statetrans = colSums(Statetrans)
   trans= t(t(Statetrans)/colSums(Statetrans))
   
   
   for (k in c(1:m)){
     if (emisf[k]=="dpois"){
-      param[[k]] = sum(X*FA[k,]*BA[k,]/likelihood)/ sum(FA[k,]*BA[k,]/likelihood)
+      param[[k]] = sum(X*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood))
     }
     else if (emisf[k]=="dnorm"){
-      param[[k]]$mean =  sum(X*FA[k,]*BA[rfk,]/likelihood)/ sum(FA[k,]*BA[k,]/likelihood)
-      param[[k]]$var =  sum((X-param[[k]]$mean)*FA[k,]*BA[k,]/likelihood)/ sum(FA[k,]*BA[k,]/likelihood)
+      param[[k]]$mean =   sum(X*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood))
+      param[[k]]$var =  sum((X-param[[k]]$mean)*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood))
     }
     
     else{
@@ -94,9 +94,9 @@ em <- function(HM,X,tol = 0.001 , maxiter = 100){
   HM1$stationary_dist = delta
   HM1$param = param
   
-  FA = forward(HM1,X)
-  BA =backward(HM1,X)
-  likelihood =  sum(FA[,t])
+  FA = forward(HM1,X,log_sum=T)
+  BA = backward(HM1,X,log_sum=T)
+  likelihood =log(sum(exp(FA[,ncol(FA)]- max(FA[,ncol(FA)]))))+ max(FA[,ncol(FA)])
   L= c(L,likelihood)
   LL = length(L)
   if (L[LL] > L[LL-1]){
@@ -106,7 +106,8 @@ em <- function(HM,X,tol = 0.001 , maxiter = 100){
     u=u+1
   } else {
     if (u>0){
-      print(paste("EM algoprithm has stopped after" ,u, "iterations as the likelihood did not increase in the" ,u+1, "iteration"))
+      warning(paste("EM algoprithm has stopped after" ,u, "iterations as the likelihood did not increase in the" ,u+1, "iteration",
+                    "Consider trying other starting values, as the algorithm may have fallen into a local maximum"))
       return(HM)
     } else{
       stop("EM algoprithm cannot run as the likelihood is not increasing.
@@ -122,3 +123,4 @@ em <- function(HM,X,tol = 0.001 , maxiter = 100){
 
 
 
+ 
