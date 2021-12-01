@@ -71,7 +71,7 @@ The forecast function allow the used to check what the probability of getting a 
 ```{r}
 forecast(2,10,HM=HM,X=X)
 ```
-To last the user can use the Expectation–maximization algorithm to fit their data to a *HMM*. Here the user need to provide the data and a HMM object, which contain the initial guess for the parameters. The function will return *HMM* obejct, but now with the new parameters. 
+To last the user can use the Expectation–maximization algorithm to fit their data to a *HMM*. Here the user need to provide the data and a HMM object, which contain the initial guess for the parameters. The function will return *HMM* object, but now with the new parameters. 
 ```{r}
 HM2 = em(HM,X)
 HM2
