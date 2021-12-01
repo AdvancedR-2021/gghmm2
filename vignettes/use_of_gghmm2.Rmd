@@ -22,9 +22,7 @@ library(gghmm2)
 ##Hidden Markov Model
 Hidden Markov model (HMM) is a statistical Markov model where the system in question is being model by a Markov process $S$ with hidden states. In other words $S$ - which will be called the hidden state -  can not be observed directly so we instead model on $X$ which from now on will be called the observable states. Thus we learn about $S$ at $t=t_0$ from $X$ at $t=t_0$.
 
-![Overview of a Hidden Markov model](HMM.webp){width=50%}
 
-![Overview of hmm on google](hmmm.png){width=20%}
 
 ##The package
 
