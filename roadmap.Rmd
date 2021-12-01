@@ -30,9 +30,9 @@ knitr::opts_chunk$set(echo = TRUE)
 Priority 1:
 - Add into to vignette
 
-- Deal with underflow # Esben
+- Deal with underflow # Simon - Done
 
-- Add stationary option / deal with problem in the vignette
+- Add stationary option / deal with problem in the vignette - Done
 
 - add more distributions to EM # Simon 
 
@@ -40,7 +40,7 @@ Priority 1:
 
 - add tidyverse/tibble to documentation.  
 
-- add warning to HMM and other functions # Esben
+- add warning to HMM and other functions # Esben - Done
 
 Priority 2:
 
@@ -48,9 +48,9 @@ Priority 2:
 
 - Standardizing of Parameters.
 
-- add background to vignette # Esben
+- add background to vignette # Esben - Done
 
-- replace $ with * in vignette 
+- replace $ with * in vignette - Done
 
 Priority 3:
 - optimize code (look at viterbi)
