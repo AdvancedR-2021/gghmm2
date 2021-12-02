@@ -11,6 +11,7 @@ Authors@R: c(
   )
 Maintainer: Simon 201705216@post.au.dk, Esben
 Description: Package for analyse and modeling of Hidden markov models. 
+URL: https://advancedr-2021.github.io/gghmm2/, https://github.com/AdvancedR-2021/gghmm2
 License: GPL-2
 Encoding: UTF-8
 LazyData: true

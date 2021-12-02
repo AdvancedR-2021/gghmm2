@@ -1,6 +1,5 @@
 
-# <img src='logo.png' align = "center" height="170" />
-## gghmm2
+# gghmm2 <img src='logo.png' align = "center" height="170" width= "200" />
 
 Package for analyse and modeling of Hidden markov models. 
 
