@@ -3,6 +3,12 @@ Type: Package
 Title: gghmm2
 Version: 0.2.0
 Author: Ajay, Esben and Simon
+Authors@R: c(
+    person("Simon", "Lolk Lauridsen", , "201705216@post.au.dk", role = c("aut", "cre")
+    ),
+    person("Esben", "Skipper", role = "aut"
+    )
+  )
 Maintainer: Simon 201705216@post.au.dk, Esben
 Description: Package for analyse and modeling of Hidden markov models. 
 License: GPL-2
