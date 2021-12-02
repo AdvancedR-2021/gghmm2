@@ -3,6 +3,42 @@ template:
   bootswatch: vapor
 
 navbar:
-  structure:
-    left:  [ articles,reference]
+ components:
+   articles:
+      text: Introduction
+      href: articles/use_of_gghmm2.html
+   reference:
+     text: Functions
+     menu:
+        - text: Class
+        - text: HMM
+          href: reference/HMM.html
+        - text: Print
+          href: reference/print.HMM.html
+        - text: -------
+        - text: "Finding model"
+        - text: EM
+          href: reference/em.html
+        - text: Forward
+          href: reference/forward.html
+        - text: Backward
+          href: reference/backward.html
+        - text: -------
+        - text: "Decoding"
+        - text: Local Decoder
+          href: reference/local_decoder.html
+        - text: Global Decoder
+          href: reference/viterbi.html
+        - text: State prob.
+          href: reference/state_prob.html
+        - text: -------
+        - text: "Forecasting"
+          href: reference/forecast.html        
+        - text: -------
+        - text: "Data"
+          href: reference/earthquakes.html
+ structure:
+    left: [ articles,reference]
     right: [ github,search]
+
+
