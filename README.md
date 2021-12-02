@@ -9,3 +9,4 @@ Documentation manager: Esben
 
 Quality manager: Ajay
 
+Website: https://advancedr-2021.github.io/gghmm2/
