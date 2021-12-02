@@ -3,7 +3,7 @@ Type: Package
 Title: gghmm2
 Version: 0.2.0
 Author: Ajay, Esben and Simon
-Maintainer: The package maintainer <yourself@somewhere.net>
+Maintainer: Simon 201705216@post.au.dk, Esben
 Description: Package for analyse and modeling of Hidden markov models. 
 License: GPL-2
 Encoding: UTF-8
