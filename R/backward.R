@@ -24,7 +24,7 @@
 backward <- function(HM,X,log_sum=F){
   if (!is.null(HM) ){
     trans = HM$transmision
-    delta = HM$stationary_dist
+    delta = HM$initial_dist
     param = HM$param
     emisf = HM$emission_func
   }

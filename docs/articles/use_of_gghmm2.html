@@ -110,8 +110,8 @@
 <code class="sourceCode R"><span class="va">X</span> <span class="op">&lt;-</span> <span class="va">earthquakes</span><span class="op">$</span><span class="va">n</span>
 <span class="va">delta</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">0.5</span><span class="op">)</span>
 <span class="va">trans</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>,<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="fl">0.9</span><span class="op">)</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>
-<span class="va">HM</span> <span class="op">=</span> <span class="fu"><a href="../reference/HMM.html">HMM</a></span><span class="op">(</span>stationary_dist <span class="op">=</span> <span class="va">delta</span>,transmission <span class="op">=</span> <span class="va">trans</span>,
-         emission_function_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dpois"</span>,<span class="st">"dpois"</span><span class="op">)</span>,parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">10</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span>
+<span class="va">HM</span> <span class="op">=</span> <span class="fu"><a href="../reference/HMM.html">HMM</a></span><span class="op">(</span>initial_dist <span class="op">=</span> <span class="va">delta</span>,transmission <span class="op">=</span> <span class="va">trans</span>,
+         emission_function_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dpois"</span><span class="op">)</span>,parameterlist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">10</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span>
 <span class="va">HM</span>
 <span class="co">#&gt; [1] "This is a Hidden Markov model with 2 hidden states."</span>
 <span class="co">#&gt; [1] "It has the Statinonary distribution of:"</span>
@@ -157,17 +157,17 @@
 <p>To last the user can use the Expectation–maximization algorithm to fit their data to a <em>HMM</em>. Here the user need to provide the data and a HMM object, which contain the initial guess for the parameters. The function will return <em>HMM</em> object, but now with the new parameters.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">HM2</span> <span class="op">=</span> <span class="fu"><a href="../reference/em.html">em</a></span><span class="op">(</span><span class="va">HM</span>,<span class="va">X</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Number of iterations: 21"</span>
+<span class="co">#&gt; [1] "Number of iterations: 35"</span>
 <span class="va">HM2</span>
 <span class="co">#&gt; [1] "This is a Hidden Markov model with 2 hidden states."</span>
 <span class="co">#&gt; [1] "It has the Statinonary distribution of:"</span>
-<span class="co">#&gt; [1] 1.000000e+00 1.104646e-56</span>
+<span class="co">#&gt; [1] 1.000000e+00 3.270886e-93</span>
 <span class="co">#&gt; [1] "It has the transmision matrix:"</span>
-<span class="co">#&gt;            [,1]     [,2]</span>
-<span class="co">#&gt; [1,] 0.92837683 0.119045</span>
-<span class="co">#&gt; [2,] 0.07162317 0.880955</span>
-<span class="co">#&gt; [1] "State 1  has the emission function dpois with parameters lambda = 15.4205545371766"</span>
-<span class="co">#&gt; [1] "State 2  has the emission function dpois with parameters lambda = 26.0175459459797"</span></code></pre></div>
+<span class="co">#&gt;            [,1]      [,2]</span>
+<span class="co">#&gt; [1,] 0.92837388 0.1190377</span>
+<span class="co">#&gt; [2,] 0.07162612 0.8809623</span>
+<span class="co">#&gt; [1] "State 1  has the emission function dpois with parameters lambda = 15.4203141191079"</span>
+<span class="co">#&gt; [1] "State 2  has the emission function dpois with parameters lambda = 26.0170570907939"</span></code></pre></div>
   </main>
 </div>
 

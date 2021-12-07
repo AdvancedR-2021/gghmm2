@@ -22,7 +22,7 @@
 forecast <- function(pred_obs,pred_time,HM,X){
   if (!is.null(HM) ){
     trans = HM$transmision
-    delta = HM$stationary_dist
+    delta = HM$initial_dist
     Param = HM$param
     emisf = HM$emission_func
   }

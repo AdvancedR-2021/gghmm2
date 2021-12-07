@@ -19,13 +19,13 @@
 #' delta = c(0.5,0.5)
 #' lambdaL=c(10,30)
 #' trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
-#' hm = HMM(stationary_dist = delta,transmision = trans,emission_function_names = c("dpois","dpois"),parameters = list(list(lambda =10),list(lambda =30)))
+#' hm = HMM(initial_dist = delta,transmision = trans,emission_function_names = c("dpois","dpois"),parameterslist = list(list(lambda =10),list(lambda =30)))
 #' viterbi(hm,X)
 
 viterbi = function(HM,X){
   if (!is.null(HM) ){
     trans = HM$transmision
-    delta = HM$stationary_dist
+    delta = HM$initial_dist
     param = HM$param
     emisf = HM$emission_func
   }
