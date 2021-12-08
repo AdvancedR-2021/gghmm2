@@ -51,3 +51,4 @@ forward <- function(HM,X,log_sum=F){
   
   return(alpha_matrix)
 }
+

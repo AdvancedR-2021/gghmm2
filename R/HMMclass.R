@@ -133,7 +133,7 @@ print.HMM <- function(HMM){
   }
   
   print(paste("This is a Hidden Markov model with", length(delta), "hidden states."))
-  print("It has the Statinonary distribution of:")
+  print("It has the initial distirbution of:")
   print(delta)
   print("It has the transmision matrix:")
   print(trans)

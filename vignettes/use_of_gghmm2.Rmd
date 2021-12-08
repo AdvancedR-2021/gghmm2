@@ -32,32 +32,34 @@ Hidden Markov model (HMM) is a statistical Markov model *S* where *S* is being m
 ##The package
 
 \section{The package}
-To see how the package works, we will cover a example of it, using the earthquakes data contained in the package. First we load that data set and build the model we will be using. Here we use the HMM function to create the model. 
+To see how the package works, we will cover a example of it, using the earthquakes data contained in the package. First we load that data set and build the model we will be using. We will be trying to fit a $2$ state hidden markom model where the states emit from a poisson distribution. So we set *emission_function_names* to "dpois" to tell the model that we 
+Here we use the HMM function to create the model. 
 
 ```{r}
 X <- earthquakes$n
 delta = c(0.5,0.5)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
 HM = HMM(initial_dist = delta,transmission = trans,
-         emission_function_names = c("dpois"),parameterlist = list(list(lambda=10),list(lambda=30)) )
+         emission_function_names = "dpois",parm1 = c(10,30) )
 HM
 ```
-Note that the print of the model, tells us how many hidden states the model has and all the parameters values.
+Note that the print of the model, tells us how many hidden states the model has and the parameters values. As a alternative to using *parm1* the user could also have used *parameterlist = list(list(lambda=10),list(lambda=30))*. However as we are only using one parameter for each distribution, then it is easier to just use *parm1*. 
+
 
 To use the forward and backward algorithms, the user can use the forward and backward functions. They just need to be supplied with the the model as *HM* and the data as *X*.  
 
 ```{r}
 n = length(X)
-FM = forward(HM,X)
+FM = forward(HM=HM,X=X)
 sum(FM[,n])
 BM = backward(HM,X)
 ```
 
-To find the probability of being at a certain state *state* at a time *state~time~*, we can use *state~prob~*. Again the user also need to provide a model as *HMM* and the data as *X*. Note that we cannot calculate the  probability for a time bigger then the size of the data. So if we have a sequence of *10* observation, then *state~time~* cannot be larger then *10*. 
+To find the probability of being at a certain state *state* at a time *state_time*, we can use *state_prob*. Again the user also need to provide a model as *HMM* and the data as *X*. Note that we cannot calculate the  probability for a time bigger then the size of the data. So if we have a sequence of *10* observation, then *state_time* cannot be larger then *10*. 
 ```{r}
 state_prob(state = 1, state_time = 10, HM = HM, X = X)
 ```
-The package also have both a local and global decoder. The local decoder function is called *local~decoder~* and will return a vector of hidden states.   
+The package also have both a local and global decoder. The local decoder function is called *local_decoder* and will return a vector of hidden states.   
 ```{r}
 local_decoder(X,HM)
 ```
@@ -67,7 +69,7 @@ The global decoder is called Viterbi and will return a list. The list contains t
 viterbi(HM,X)
 ```
 
-The forecast function allow the used to check what the probability of getting a state at a time in future will be. Here the user need to provide the state as a index as the variable *pred~obs~* , and the time as *pred~time~*. 
+The forecast function allow the used to check what the probability of getting a state at a time in future will be. Here the user need to provide the state as a index as the variable *pred_obs* , and the time as *pred_time*. 
 ```{r}
 forecast(2,10,HM=HM,X=X)
 ```

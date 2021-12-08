@@ -5,7 +5,7 @@
 #' @details Is an iterative method to find a local maximum likelihood or a maximum poosteriori estimates of parametersin a 
 #' statistical model, where the model depends on hidden variables. The EM alternates between performing an expectation step, 
 #' which creates a function for the expectation of the log-likelihood evaluated using the curretn estimate for the parameters, 
-#' and a maximation step, which computes the parameters, which maximize the expected log-likelihood found in the E step. This 
+#' and a maximization step, which computes the parameters, which maximize the expected log-likelihood found in the E step. This 
 #' is then iterated.
 #' 
 #' @usage em(HM,X)
