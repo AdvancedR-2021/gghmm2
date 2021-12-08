@@ -78,3 +78,15 @@ To last the user can use the Expectation–maximization algorithm to fit their d
 HM2 = em(HM,X)
 HM2
 ```
+
+
+A alternative example could be a fit of the normal distribution 
+
+```{r}
+HMN = HMM(initial_dist = delta,transmission = trans,
+         emission_function_names = "dnorm",parameterlist = list(list(mean=10,sd=1),list(mean=20,sd=1)) )
+HMN
+HMN2 = em(HMN,X)
+HMN2
+```
+

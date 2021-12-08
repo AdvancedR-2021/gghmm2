@@ -62,12 +62,16 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
   HM1=HM
   while(maxiter>u & abs(L[length(L)]- L[length(L)-1])/abs(L[length(L)-1])>tol){
     
+   gamma=c(1:length(X))
+   
+    
+    
   Statetrans = matrix(1,m,m)
   for (i in c(1:m)){
     for (j in c(1:m)){
       temp=0
       for (l in c(2:t)){
-    temp = temp+ exp(FA[i,(l-1)])*trans[i,j]* do.call(emisf[[j]],c(list(x=X[l]),param[[j]]))*exp(BA[j,l])/exp(likelihood) }
+    temp = temp+ exp(FA[i,(l-1)] + log(trans[i,j]) + log(do.call(emisf[[j]],c(list(x=X[l]),param[[j]]))) + BA[j,l]- likelihood) }
       Statetrans[i,j] = temp
     }
   }
@@ -81,8 +85,9 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
       param[[k]] = list(lambda= sum(X*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood)))
     }
     else if (emisfname[k]=="dnorm"){
-      param[[k]]$mean = list(mean=  sum(X*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood)))
-      param[[k]]$var =list(sd =   sqrt(sum((X-param[[k]]$mean)*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood))) )
+      param[[k]][1] = list(mean= sum(X*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood)))
+      mu = param[[k]]$mean
+      param[[k]][2] =list(sd =sqrt(sum(abs(X-mu)*exp(FA[k,]+BA[k,]-likelihood))/ sum(exp(FA[k,]+BA[k,]-likelihood))) )
     }
     
     else{
@@ -121,9 +126,6 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
   }
 
   }
-  #print(L)
   print(paste("Number of iterations:" ,u))
   return(HM)
 }
-
-
