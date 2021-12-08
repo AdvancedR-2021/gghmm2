@@ -3,14 +3,17 @@
 #' @description A S3 class that can be used to define a hidden markov model, which can then be used by the ther functions in this package.
 #' 
 #' @details 
-#' The user will have to define parameters behind this model. This would be the stationary distribution, transmission matrix and the distribution 
+#' The user will have to define parameters behind this model. This would be the initial distribution, transmission matrix and the distribution 
 #' of each hidden state with its parameters. The distribution will come as a vector 
 #' of strings, where each string is the name of the density function to be used 
-#' for that hidden state. The parameters for each hidden state are kept in a list 
-#' of list, where each list contain the named parameters for the relevant distribution. 
+#' for that hidden state. If only one string is defined, then that one will be used as the distribtuion for all the hidden states.
 #' 
-#' It is important that they are named, as this allow the do.call function to use parameters 
-#' in the distribution function. 
+#' The user has two ways to define what parameters the density functions will use. If the density only need up 
+#' to two different parameters, then the variables parm1 and parm2 can be used. They can either be a vector where each value will be a parameter
+#' in the corresponding distribution or if the same value should be a parameter in each of the distribution then a single value will work.  
+#' 
+#' Alternativly the user can also give the parameters in a list of lists, where the internal list each contain all the parameters needed for the corresponding distribution.
+#' 
 #' 
 #' The class has its own print function, which will 
 #' print out the parameter for the HHM. The user can use their own density function, 
@@ -24,14 +27,15 @@
 #'
 #' 
 #'
-#' @usage HMM(stationary_dist,transmission , emission_function_names, parameters)
+#' @usage HMM(initial_dist,transmission , emission_function_names, parameterlist)
 #'
-#' @param stationary_dist  numerical vector of the stationary distribution
+#' @param initial_dist  numerical vector of the stationary distribution
 #' @param transmission  numerical matrix containing the transmission probabilities 
 #' @param emission_function_names vector of names for emission functions 
-#' @param parameters  list of list, where each list containing the parameters needed in the corresponding emission function
+#' @param parameterslist  list of list, where each list containing the parameters needed in the corresponding emission function
 #' @param state_names vector of names for each state 
-#' @param nparams vector of the numbers of parameters that each 
+#' @param parm1 vector of parameters
+#' @param parm2 vector of parameters 
 #'
 #' @return A HMM class object 
 #' @import tibble
@@ -40,32 +44,69 @@
 #' X <- earthquakes$n
 #' delta = c(0.5,0.5)
 #' trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
-#' HM = HMM(stationary_dist = delta,transmission = trans,  
-#' emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),
+#' HM = HMM(initial_dist = delta,transmission = trans,  
+#' emission_function_names = "dpois",parameterslist = list(list(lambda=10),
 #' list(lambda=30)) )
 #' HM
 
-HMM <- function(stationary_dist, # replace with  initial_dist in the entire package
+HMM <- function(initial_dist, 
                 transmission,
-                emission_function_names,parameters, nparams=NULL,state_names = NULL,...){
+                emission_function_names,parameterlist=NULL, nparams=NULL,state_names = NULL,
+                parm1 = NULL,parm2=NULL,...){
   if (is.null(state_names)){
-    state_names = c(1:length(stationary_dist))
+    state_names = c(1:length(initial_dist))
   }
-  if (!is.vector(stationary_dist) | sum(stationary_dist)!= 1) {stop("The initial distribution needs to be a vector and sum to 1")}
+  if (!is.vector(initial_dist) | sum(initial_dist)!= 1) {stop("The initial distribution needs to be a vector and sum to 1")}
   if (!is.matrix(transmission)) {stop("The transmission matrix needs to be a matrix")}
-  d1 = length(stationary_dist)
+  if (is.null(parameterlist) & is.null(parm1) & is.null(parm2) ){ stop("The distributions needs parameterlist to work")
+    }
+  d1 = length(initial_dist)
   d2= dim(transmission)
   d3 = length(emission_function_names)
-  d4 = length(parameters)
   if (d2[1] != d2[2]) {stop("The transmission matrix need to be a Square matrix")}
   if (d1 != d2[2]) {stop("The transmission matrix and the vector of initial distribution need to have the same dimensions")}
+  if (d3==1 & d1>1){
+    
+    emission_function_names= rep(emission_function_names,d1)
+  }
+  d3 = length(emission_function_names)
   if (d1 != d3) {stop("The number of emission function need to be the same as the number of initial distributions " )}
-  
+ 
+  if (!is.null(parameterlist)){
+    param= parameterlist
+  } else{
+    if (!is.null(parm1) & length(parm1)==1){
+      parm1= rep(parm1,d1)
+    }
+    if (!is.null(parm2) & length(parm2)==1){
+      parm1= rep(parm2,d1)
+    }
+    if (!is.null(parm1) & d1 != length(parm1)) {stop("There need to be as many parameters in parm1 as there are distributions.
+                                                    If you want to use different distributions with diferent numbers of paramets
+                                                   you will need to use the parameterlist argument." )}
+    
+    param= list()
+    if (!is.null(parm1) & !is.null(parm2)){
+     for (i in c(1:d1)){
+      param[[i]] = list(parm1[i],parm2[i]) 
+    }
+    } else if (!is.null(parm1) & is.null(parm2)){
+      for (i in c(1:d1)){
+        param[[i]] = list(parm1[i]) 
+      } 
+      
+    } else{
+      for (i in c(1:d1)){
+        param[[i]] = list(parm2[i]) 
+      } 
+    }
+  }
+  d4 = length(param)
   emission_function = sapply(emission_function_names,get)
-  lisst <- tibble::tibble(stationary_dist=stationary_dist,transmision = transmission ,
+  lisst <- tibble::tibble(initial_dist=initial_dist,transmision = transmission ,
                   emission_func=emission_function,
                   emission_function_names=emission_function_names, 
-                  param = parameters , state_names = state_names)
+                  param = param , state_names = state_names)
   class(lisst ) <- c("HMM","tbl_df")
   return(lisst ) 
 }
@@ -84,7 +125,7 @@ HMM <- function(stationary_dist, # replace with  initial_dist in the entire pack
 print.HMM <- function(HMM){
   if (!is.null(HMM) ){
     trans = HMM$transmision
-    delta = HMM$stationary_dist
+    delta = HMM$initial_dist
     Param = HMM$param
     emisf = HMM$emission_func
     emisnames = HMM$emission_function_names

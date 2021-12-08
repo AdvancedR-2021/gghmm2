@@ -90,7 +90,7 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Is an iterative method to find a local maximum likelihood or a maximum poosteriori estimates of parameters in a 
+    <p>Is an iterative method to find a local maximum likelihood or a maximum poosteriori estimates of parametersin a 
 statistical model, where the model depends on hidden variables. The EM alternates between performing an expectation step, 
 which creates a function for the expectation of the log-likelihood evaluated using the curretn estimate for the parameters, 
 and a maximation step, which computes the parameters, which maximize the expected log-likelihood found in the E step. This 
@@ -102,19 +102,11 @@ is then iterated.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"> <span class="va">X</span> <span class="op">&lt;-</span> <span class="va">earthquakes</span><span class="op">$</span><span class="va">n</span></span>
 <span class="r-in"><span class="va">delta</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">0.5</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">trans</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>,<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="fl">0.9</span><span class="op">)</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">HM</span> <span class="op">=</span> <span class="fu"><a href="HMM.html">HMM</a></span><span class="op">(</span>stationary_dist <span class="op">=</span> <span class="va">delta</span>,transmission <span class="op">=</span> <span class="va">trans</span>,  </span>
-<span class="r-in">        emission_function_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dpois"</span>,<span class="st">"dpois"</span><span class="op">)</span>,parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">10</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span>
+<span class="r-in"><span class="va">HM</span> <span class="op">=</span> <span class="fu"><a href="HMM.html">HMM</a></span><span class="op">(</span>initial_dist <span class="op">=</span> <span class="va">delta</span>,transmission <span class="op">=</span> <span class="va">trans</span>,  </span>
+<span class="r-in">        emission_function_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dpois"</span>,<span class="st">"dpois"</span><span class="op">)</span>,parameterslist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">10</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in HMM(initial_dist = delta, transmission = trans, emission_function_names = c("dpois",     "dpois"), parameterslist = list(list(lambda = 10), list(lambda = 30))):</span> The distributions needs parameterlist to work</span>
 <span class="r-in"><span class="fu">em</span><span class="op">(</span>HM<span class="op">=</span><span class="va">HM</span>,X<span class="op">=</span><span class="va">X</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Number of iterations: 21"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "This is a Hidden Markov model with 2 hidden states."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "It has the Statinonary distribution of:"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.000000e+00 1.104646e-56</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "It has the transmision matrix:"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]     [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.92837683 0.119045</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.07162317 0.880955</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "State 1  has the emission function dpois with parameters lambda = 15.4205545371766"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "State 2  has the emission function dpois with parameters lambda = 26.0175459459797"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in em(HM = HM, X = X):</span> object 'HM' not found</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

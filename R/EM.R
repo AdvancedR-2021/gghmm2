@@ -2,7 +2,7 @@
 #'
 #' @description The EM algorithm finds the maximum-likelihood estimates of a HMM. 
 #' 
-#' @details Is an iterative method to find a local maximum likelihood or a maximum poosteriori estimates of parameters in a 
+#' @details Is an iterative method to find a local maximum likelihood or a maximum poosteriori estimates of parametersin a 
 #' statistical model, where the model depends on hidden variables. The EM alternates between performing an expectation step, 
 #' which creates a function for the expectation of the log-likelihood evaluated using the curretn estimate for the parameters, 
 #' and a maximation step, which computes the parameters, which maximize the expected log-likelihood found in the E step. This 
@@ -24,15 +24,15 @@
 #'  X <- earthquakes$n
 #' delta = c(0.5,0.5)
 #' trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
-#' HM = HMM(stationary_dist = delta,transmission = trans,  
-#'         emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),list(lambda=30)) )
+#' HM = HMM(initial_dist = delta,transmission = trans,  
+#'         emission_function_names = c("dpois","dpois"),parameterslist = list(list(lambda=10),list(lambda=30)) )
 #' em(HM=HM,X=X)
 #'
 
 em <- function(HM,X,tol = 10^-9 , maxiter = 100){
   if (!is.null(HM) ){
     trans = HM$transmision
-    delta = HM$stationary_dist
+    delta = HM$initial_dist
     param = HM$param
     emisf = HM$emission_func
     emisfname = HM$emission_function_names
@@ -94,7 +94,7 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
   }
   
   HM1$transmision = trans 
-  HM1$stationary_dist = delta
+  HM1$initial_dist = delta
   HM1$param = param
   
   FA = forward(HM1,X,log_sum=T)
@@ -104,7 +104,7 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
   LL = length(L)
   if (L[LL] > L[LL-1]){
     HM$transmision = trans 
-    HM$stationary_dist = delta
+    HM$initial_dist = delta
     NN = names(HM$param)
     HM$param = param
     u=u+1

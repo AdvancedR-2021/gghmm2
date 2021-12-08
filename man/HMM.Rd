@@ -4,20 +4,22 @@
 \alias{HMM}
 \title{The hidden markov model}
 \usage{
-HMM(stationary_dist,transmission , emission_function_names, parameters)
+HMM(initial_dist,transmission , emission_function_names, parameterlist)
 }
 \arguments{
-\item{stationary_dist}{numerical vector of the stationary distribution}
+\item{initial_dist}{numerical vector of the stationary distribution}
 
 \item{transmission}{numerical matrix containing the transmission probabilities}
 
 \item{emission_function_names}{vector of names for emission functions}
 
-\item{parameters}{list of list, where each list containing the parameters needed in the corresponding emission function}
-
-\item{nparams}{vector of the numbers of parameters that each}
-
 \item{state_names}{vector of names for each state}
+
+\item{parm1}{vector of parameters}
+
+\item{parm2}{vector of parameters}
+
+\item{parameterslist}{list of list, where each list containing the parameters needed in the corresponding emission function}
 }
 \value{
 A HMM class object
@@ -26,14 +28,17 @@ A HMM class object
 A S3 class that can be used to define a hidden markov model, which can then be used by the ther functions in this package.
 }
 \details{
-The user will have to define parameters behind this model. This would be the stationary distribution, transmission matrix and the distribution 
+The user will have to define parameters behind this model. This would be the initial distribution, transmission matrix and the distribution 
 of each hidden state with its parameters. The distribution will come as a vector 
 of strings, where each string is the name of the density function to be used 
-for that hidden state. The parameters for each hidden state are kept in a list 
-of list, where each list contain the named parameters for the relevant distribution. 
+for that hidden state. If only one string is defined, then that one will be used as the distribtuion for all the hidden states.
 
-It is important that they are named, as this allow the do.call function to use parameters 
-in the distribution function. 
+The user has two ways to define what parameters the density functions will use. If the density only need up 
+to two different parameters, then the variables parm1 and parm2 can be used. They can either be a vector where each value will be a parameter
+in the corresponding distribution or if the same value should be a parameter in each of the distribution then a single value will work.  
+
+Alternativly the user can also give the parameters in a list of lists, where the internal list each contain all the parameters needed for the corresponding distribution.
+
 
 The class has its own print function, which will 
 print out the parameter for the HHM. The user can use their own density function, 
@@ -49,8 +54,8 @@ distribution function, then it is necessary for the quantile parameter to be cal
 X <- earthquakes$n
 delta = c(0.5,0.5)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
-HM = HMM(stationary_dist = delta,transmission = trans,  
-emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),
+HM = HMM(initial_dist = delta,transmission = trans,  
+emission_function_names = "dpois",parameterslist = list(list(lambda=10),
 list(lambda=30)) )
 HM
 }

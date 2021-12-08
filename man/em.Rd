@@ -22,7 +22,7 @@ HMM Returns an updated HMM object
 The EM algorithm finds the maximum-likelihood estimates of a HMM.
 }
 \details{
-Is an iterative method to find a local maximum likelihood or a maximum poosteriori estimates of parameters in a 
+Is an iterative method to find a local maximum likelihood or a maximum poosteriori estimates of parametersin a 
 statistical model, where the model depends on hidden variables. The EM alternates between performing an expectation step, 
 which creates a function for the expectation of the log-likelihood evaluated using the curretn estimate for the parameters, 
 and a maximation step, which computes the parameters, which maximize the expected log-likelihood found in the E step. This 
@@ -32,8 +32,8 @@ is then iterated.
  X <- earthquakes$n
 delta = c(0.5,0.5)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
-HM = HMM(stationary_dist = delta,transmission = trans,  
-        emission_function_names = c("dpois","dpois"),parameters = list(list(lambda=10),list(lambda=30)) )
+HM = HMM(initial_dist = delta,transmission = trans,  
+        emission_function_names = c("dpois","dpois"),parameterslist = list(list(lambda=10),list(lambda=30)) )
 em(HM=HM,X=X)
 
 }

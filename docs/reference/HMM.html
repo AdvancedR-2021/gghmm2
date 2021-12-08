@@ -70,23 +70,25 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">HMM</span><span class="op">(</span><span class="va">stationary_dist</span>,<span class="va">transmission</span> , <span class="va">emission_function_names</span>, <span class="va">parameters</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">HMM</span><span class="op">(</span><span class="va">initial_dist</span>,<span class="va">transmission</span> , <span class="va">emission_function_names</span>, <span class="va">parameterlist</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>stationary_dist</dt>
+    <dl><dt>initial_dist</dt>
 <dd><p>numerical vector of the stationary distribution</p></dd>
 <dt>transmission</dt>
 <dd><p>numerical matrix containing the transmission probabilities</p></dd>
 <dt>emission_function_names</dt>
 <dd><p>vector of names for emission functions</p></dd>
-<dt>parameters</dt>
-<dd><p>list of list, where each list containing the parameters needed in the corresponding emission function</p></dd>
-<dt>nparams</dt>
-<dd><p>vector of the numbers of parameters that each</p></dd>
 <dt>state_names</dt>
 <dd><p>vector of names for each state</p></dd>
+<dt>parm1</dt>
+<dd><p>vector of parameters</p></dd>
+<dt>parm2</dt>
+<dd><p>vector of parameters</p></dd>
+<dt>parameterslist</dt>
+<dd><p>list of list, where each list containing the parameters needed in the corresponding emission function</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -94,13 +96,15 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The user will have to define parameters behind this model. This would be the stationary distribution, transmission matrix and the distribution 
+    <p>The user will have to define parameters behind this model. This would be the initial distribution, transmission matrix and the distribution 
 of each hidden state with its parameters. The distribution will come as a vector 
 of strings, where each string is the name of the density function to be used 
-for that hidden state. The parameters for each hidden state are kept in a list 
-of list, where each list contain the named parameters for the relevant distribution.</p>
-<p>It is important that they are named, as this allow the do.call function to use parameters 
-in the distribution function.</p>
+for that hidden state. If only one string is defined, then that one will be used as the distribtuion for all the hidden states.</p>
+<p>The user has two ways to define what parameters the density functions will use. If the density only need up 
+to two different parameters, then the variables parm1 and parm2 can be used. They can either be a vector where each value will be a parameter
+in the corresponding distribution or if the same value should be a parameter in each of the distribution then a single value will work.</p>
+<p>Alternativly the user can also give the parameters in a list of lists, where the internal list each contain all the parameters needed for the corresponding distribution.</p>
+
 <p>The class has its own print function, which will 
 print out the parameter for the HHM. The user can use their own density function, 
 if R does not have then one they want to use. However then it will be required 
@@ -116,19 +120,12 @@ distribution function, then it is necessary for the quantile parameter to be cal
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">X</span> <span class="op">&lt;-</span> <span class="va">earthquakes</span><span class="op">$</span><span class="va">n</span></span>
 <span class="r-in"><span class="va">delta</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">0.5</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">trans</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.9</span>,<span class="fl">0.1</span>,<span class="fl">0.1</span>,<span class="fl">0.9</span><span class="op">)</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">HM</span> <span class="op">=</span> <span class="fu">HMM</span><span class="op">(</span>stationary_dist <span class="op">=</span> <span class="va">delta</span>,transmission <span class="op">=</span> <span class="va">trans</span>,  </span>
-<span class="r-in">emission_function_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dpois"</span>,<span class="st">"dpois"</span><span class="op">)</span>,parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span class="r-in"><span class="va">HM</span> <span class="op">=</span> <span class="fu">HMM</span><span class="op">(</span>initial_dist <span class="op">=</span> <span class="va">delta</span>,transmission <span class="op">=</span> <span class="va">trans</span>,  </span>
+<span class="r-in">emission_function_names <span class="op">=</span> <span class="st">"dpois"</span>,parameterslist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">10</span><span class="op">)</span>,</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda<span class="op">=</span><span class="fl">30</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in HMM(initial_dist = delta, transmission = trans, emission_function_names = "dpois",     parameterslist = list(list(lambda = 10), list(lambda = 30))):</span> The distributions needs parameterlist to work</span>
 <span class="r-in"><span class="va">HM</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "This is a Hidden Markov model with 2 hidden states."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "It has the Statinonary distribution of:"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5 0.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "It has the transmision matrix:"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.9  0.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.1  0.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "State 1  has the emission function dpois with parameters lambda = 10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "State 2  has the emission function dpois with parameters lambda = 30"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'HM' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
