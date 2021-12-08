@@ -1,7 +1,18 @@
 
 # gghmm2 <img src='logo.png' align = "center" height="170" width= "200" />
 
-Package for analyse and modeling of Hidden markov models. 
+This package is meant for estimation of parameters in a Hidden Markov Model which is done by usage of the EM algorithm and numerically optimization. Beside that the package also contains functions fore forecasting, local decoding and Viterbi. The package comes with a data set where all functions of the package can be tested on.
+
+
+
+
+
+
+
+
+
+
+
 
 Project manager: Simon
 
