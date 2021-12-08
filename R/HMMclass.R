@@ -45,7 +45,7 @@
 #' delta = c(0.5,0.5)
 #' trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
 #' HM = HMM(initial_dist = delta,transmission = trans,  
-#' emis_names = "dpois",parameterslist = list(list(lambda=10),
+#' emis_names = "dpois",parameterlist = list(list(lambda=10),
 #' list(lambda=30)) )
 #' HM
 
