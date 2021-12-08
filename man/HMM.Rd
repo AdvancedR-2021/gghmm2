@@ -13,13 +13,13 @@ HMM(initial_dist,transmission , emis_names, parameterlist)
 
 \item{emis_names}{vector of names for emission functions}
 
+\item{parameterlist}{list of list, where each list containing the parameters needed in the corresponding emission function}
+
 \item{state_names}{vector of names for each state}
 
 \item{parm1}{vector of parameters}
 
 \item{parm2}{vector of parameters}
-
-\item{parameterslist}{list of list, where each list containing the parameters needed in the corresponding emission function}
 }
 \value{
 A HMM class object

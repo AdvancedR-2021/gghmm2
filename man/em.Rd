@@ -38,7 +38,7 @@ numerical maximization is used to fine the optimal parameter, which can have pro
 delta = c(0.5,0.5)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
 HM = HMM(initial_dist = delta,transmission = trans,  
-        emis_names = c("dpois","dpois"),parameterslist = list(list(lambda=10),list(lambda=30)) )
+        emis_names = c("dpois","dpois"),parameterlist = list(list(lambda=10),list(lambda=30)) )
 em(HM=HM,X=X)
 
 }

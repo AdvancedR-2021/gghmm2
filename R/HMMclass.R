@@ -32,7 +32,7 @@
 #' @param initial_dist  numerical vector of the stationary distribution
 #' @param transmission  numerical matrix containing the transmission probabilities 
 #' @param emis_names vector of names for emission functions 
-#' @param parameterslist  list of list, where each list containing the parameters needed in the corresponding emission function
+#' @param parameterlist  list of list, where each list containing the parameters needed in the corresponding emission function
 #' @param state_names vector of names for each state 
 #' @param parm1 vector of parameters
 #' @param parm2 vector of parameters 
