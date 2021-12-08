@@ -4,9 +4,14 @@
 #' 
 #' @details Is an iterative method to find a local maximum likelihood or a maximum poosteriori estimates of parametersin a 
 #' statistical model, where the model depends on hidden variables. The EM alternates between performing an expectation step, 
-#' which creates a function for the expectation of the log-likelihood evaluated using the curretn estimate for the parameters, 
+#' which creates a function for the expectation of the log-likelihood evaluated using the current estimate for the parameters, 
 #' and a maximization step, which computes the parameters, which maximize the expected log-likelihood found in the E step. This 
-#' is then iterated.
+#' is then iterated. The numbers of iteration the user want to do, are dependent on the tol and maxiter parameters. Maxiter is the maximum
+#' number of iterations the user will allow the algorithm to run and tol is minimal percentage change in likelihood the algorithm need to see
+#' before running another iterations. By using these two parameters, the user can control how long the algorithm should run. 
+#' 
+#' Note that if the user are using a distribution other then normal or poisson in the model, then the initial values need to be picked carefully. As 
+#' numerical maximization is used to fine the optimal parameter, which can have problem with ill chosen starting parameters.  
 #' 
 #' @usage em(HM,X)
 #' 
@@ -25,7 +30,7 @@
 #' delta = c(0.5,0.5)
 #' trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
 #' HM = HMM(initial_dist = delta,transmission = trans,  
-#'         emission_function_names = c("dpois","dpois"),parameterslist = list(list(lambda=10),list(lambda=30)) )
+#'         emis_names = c("dpois","dpois"),parameterslist = list(list(lambda=10),list(lambda=30)) )
 #' em(HM=HM,X=X)
 #'
 
@@ -35,10 +40,9 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
     delta = HM$initial_dist
     param = HM$param
     emisf = HM$emission_func
-    emisfname = HM$emission_function_names
+    emisfname = HM$emis_names
     
   }
-  
   
   neglikeli = function(newpar, parloc, HM, X){
     name <- names(HM$param[[parloc]])
@@ -61,10 +65,6 @@ em <- function(HM,X,tol = 10^-9 , maxiter = 100){
   u=0
   HM1=HM
   while(maxiter>u & abs(L[length(L)]- L[length(L)-1])/abs(L[length(L)-1])>tol){
-    
-   gamma=c(1:length(X))
-   
-    
     
   Statetrans = matrix(1,m,m)
   for (i in c(1:m)){

@@ -32,7 +32,7 @@ Hidden Markov model (HMM) is a statistical Markov model *S* where *S* is being m
 ##The package
 
 \section{The package}
-To see how the package works, we will cover a example of it, using the earthquakes data contained in the package. First we load that data set and build the model we will be using. We will be trying to fit a $2$ state hidden markom model where the states emit from a poisson distribution. So we set *emission_function_names* to "dpois" to tell the model that we 
+To see how the package works, we will cover a example of it, using the earthquakes data contained in the package. First we load that data set and build the model we will be using. We will be trying to fit a $2$ state hidden markom model where the states emit from a poisson distribution. So we set *emis_names* to "dpois" to tell the model that we 
 Here we use the HMM function to create the model. 
 
 ```{r}
@@ -40,7 +40,7 @@ X <- earthquakes$n
 delta = c(0.5,0.5)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
 HM = HMM(initial_dist = delta,transmission = trans,
-         emission_function_names = "dpois",parm1 = c(10,30) )
+         emis_names = "dpois",parm1 = c(10,30) )
 HM
 ```
 Note that the print of the model, tells us how many hidden states the model has and the parameters values. As a alternative to using *parm1* the user could also have used *parameterlist = list(list(lambda=10),list(lambda=30))*. However as we are only using one parameter for each distribution, then it is easier to just use *parm1*. 
@@ -84,7 +84,7 @@ A alternative example could be a fit of the normal distribution
 
 ```{r}
 HMN = HMM(initial_dist = delta,transmission = trans,
-         emission_function_names = "dnorm",parameterlist = list(list(mean=10,sd=1),list(mean=20,sd=1)) )
+         emis_names = "dnorm",parameterlist = list(list(mean=10,sd=1),list(mean=20,sd=1)) )
 HMN
 HMN2 = em(HMN,X)
 HMN2

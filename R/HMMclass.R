@@ -27,11 +27,11 @@
 #'
 #' 
 #'
-#' @usage HMM(initial_dist,transmission , emission_function_names, parameterlist)
+#' @usage HMM(initial_dist,transmission , emis_names, parameterlist)
 #'
 #' @param initial_dist  numerical vector of the stationary distribution
 #' @param transmission  numerical matrix containing the transmission probabilities 
-#' @param emission_function_names vector of names for emission functions 
+#' @param emis_names vector of names for emission functions 
 #' @param parameterslist  list of list, where each list containing the parameters needed in the corresponding emission function
 #' @param state_names vector of names for each state 
 #' @param parm1 vector of parameters
@@ -45,13 +45,13 @@
 #' delta = c(0.5,0.5)
 #' trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
 #' HM = HMM(initial_dist = delta,transmission = trans,  
-#' emission_function_names = "dpois",parameterslist = list(list(lambda=10),
+#' emis_names = "dpois",parameterslist = list(list(lambda=10),
 #' list(lambda=30)) )
 #' HM
 
 HMM <- function(initial_dist, 
                 transmission,
-                emission_function_names,parameterlist=NULL, nparams=NULL,state_names = NULL,
+                emis_names,parameterlist=NULL, nparams=NULL,state_names = NULL,
                 parm1 = NULL,parm2=NULL,...){
   if (is.null(state_names)){
     state_names = c(1:length(initial_dist))
@@ -62,14 +62,14 @@ HMM <- function(initial_dist,
     }
   d1 = length(initial_dist)
   d2= dim(transmission)
-  d3 = length(emission_function_names)
+  d3 = length(emis_names)
   if (d2[1] != d2[2]) {stop("The transmission matrix need to be a Square matrix")}
   if (d1 != d2[2]) {stop("The transmission matrix and the vector of initial distribution need to have the same dimensions")}
   if (d3==1 & d1>1){
     
-    emission_function_names= rep(emission_function_names,d1)
+    emis_names= rep(emis_names,d1)
   }
-  d3 = length(emission_function_names)
+  d3 = length(emis_names)
   if (d1 != d3) {stop("The number of emission function need to be the same as the number of initial distributions " )}
  
   if (!is.null(parameterlist)){
@@ -102,10 +102,10 @@ HMM <- function(initial_dist,
     }
   }
   d4 = length(param)
-  emission_function = sapply(emission_function_names,get)
+  emission_function = sapply(emis_names,get)
   lisst <- tibble::tibble(initial_dist=initial_dist,transmision = transmission ,
                   emission_func=emission_function,
-                  emission_function_names=emission_function_names, 
+                  emis_names=emis_names, 
                   param = param , state_names = state_names)
   class(lisst ) <- c("HMM","tbl_df")
   return(lisst ) 
@@ -128,7 +128,7 @@ print.HMM <- function(HMM){
     delta = HMM$initial_dist
     Param = HMM$param
     emisf = HMM$emission_func
-    emisnames = HMM$emission_function_names
+    emisnames = HMM$emis_names
     name_of_state = HMM$state_names
   }
   

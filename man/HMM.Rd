@@ -4,14 +4,14 @@
 \alias{HMM}
 \title{The hidden markov model}
 \usage{
-HMM(initial_dist,transmission , emission_function_names, parameterlist)
+HMM(initial_dist,transmission , emis_names, parameterlist)
 }
 \arguments{
 \item{initial_dist}{numerical vector of the stationary distribution}
 
 \item{transmission}{numerical matrix containing the transmission probabilities}
 
-\item{emission_function_names}{vector of names for emission functions}
+\item{emis_names}{vector of names for emission functions}
 
 \item{state_names}{vector of names for each state}
 
@@ -55,7 +55,7 @@ X <- earthquakes$n
 delta = c(0.5,0.5)
 trans=matrix(c(0.9,0.1,0.1,0.9),2,2)
 HM = HMM(initial_dist = delta,transmission = trans,  
-emission_function_names = "dpois",parameterslist = list(list(lambda=10),
+emis_names = "dpois",parameterslist = list(list(lambda=10),
 list(lambda=30)) )
 HM
 }
