@@ -6,13 +6,13 @@
 #' and thus parameter estimation. It is also used in forecasting, decoding and model checking. The recursive nature of
 #' the forward algorithm is much more computationally inexpensive than brute-force summation over all possible state sequences.
 #' 
-#' @usage forward(HM,X)
+#' @usage forward(HM,X,log_sum=F)
 #' 
 #' @include HMMclass.R
 #'
 #' @param HM A  HMM class object 
 #' @param X  Data
-#' @param log_sum True or False
+#' @param log_sum True or False, If True then the log sum trick is used to deal with underflow.
 #' @return alpha_matrix A matrix of forward probabilities 
 #' @export
 #' 

@@ -4,14 +4,14 @@
 \alias{backward}
 \title{Backward Algorithm}
 \usage{
-backward(HM,X)
+backward(HM,X,log_sum=F)
 }
 \arguments{
 \item{HM}{A  HMM class object}
 
 \item{X}{Data}
 
-\item{log_sum}{True or False}
+\item{log_sum}{True or False, If True then the log sum trick is used to deal with underflow.}
 }
 \value{
 beta_matrix A matrix of backward probabilities

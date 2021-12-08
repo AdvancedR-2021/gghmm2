@@ -4,14 +4,14 @@
 \alias{forward}
 \title{Forward Algorithm}
 \usage{
-forward(HM,X)
+forward(HM,X,log_sum=F)
 }
 \arguments{
 \item{HM}{A  HMM class object}
 
 \item{X}{Data}
 
-\item{log_sum}{True or False}
+\item{log_sum}{True or False, If True then the log sum trick is used to deal with underflow.}
 }
 \value{
 alpha_matrix A matrix of forward probabilities

@@ -6,13 +6,13 @@
 #' @details Creates through a backward pass through the data a evaluation in in form of conditional probabilities 
 #' of the observations being x_{t+1},...,x_t given that the Markov chain is in state i at time t.
 #'  
-#' @usage backward(HM,X)
+#' @usage backward(HM,X,log_sum=F)
 #' 
 #' @include HMMclass.R
 #' 
 #' @param HM A  HMM class object 
 #' @param X  Data
-#' @param log_sum True or False
+#' @param log_sum True or False, If True then the log sum trick is used to deal with underflow.
 #' 
 #' @return beta_matrix A matrix of backward probabilities 
 #' 
